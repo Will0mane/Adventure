@@ -1,0 +1,8 @@
+name: Adventure
+version: '${project.version}'
+main: me.will0mane.plugins.adventure.Adventure
+api-version: 1.17
+loadbefore: [ ProtocolLib ]
+depend: [ ProtocolLib ]
+authors: [ Will0mane ]
+description: Adventure Plugin

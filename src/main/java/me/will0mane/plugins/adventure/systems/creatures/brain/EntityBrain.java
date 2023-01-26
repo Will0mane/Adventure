@@ -11,7 +11,7 @@ public abstract class EntityBrain {
     protected EntityController controller;
     protected EntityMemory memory;
 
-    public EntityBrain(Creature creature){
+    protected EntityBrain(Creature creature){
         controller = new EntityController(creature);
         this.memory = new CreatureMemory();
     }
@@ -20,8 +20,8 @@ public abstract class EntityBrain {
         return controller;
     }
 
-    public void setTargetMovement(Location location){
-        this.controller.setTargetMovement(location);
+    public void setTargetMovement(Location location, double speed){
+        this.controller.setTargetMovement(location, speed);
     }
 
     public void setTargetLook(Location location){
@@ -30,6 +30,10 @@ public abstract class EntityBrain {
 
     public void setTarget(Creature creature){
         this.controller.setTarget(creature);
+    }
+
+    public void jump(){
+        this.controller.jump();
     }
 
     public abstract boolean canSeeEntity(Creature enemy);

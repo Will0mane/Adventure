@@ -16,7 +16,7 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class AdventureItem {
 
-    public static Map<UUID, AdventureItem> items = new HashMap<>();
+    protected static final Map<UUID, AdventureItem> items = new HashMap<>();
 
     public static Optional<AdventureItem> getItem(ItemStack item) {
         if(item == null) return Optional.empty();
@@ -179,13 +179,13 @@ public class AdventureItem {
     }
 
     private String[] getAbilitiesId() {
-        String[] abilities = new String[this.abilities.size()];
+        String[] abilityArray = new String[this.abilities.size()];
         int done = 0;
         for (ItemAbility<?> ability : this.abilities) {
-            abilities[done] = ability.getEnum().name();
+            abilityArray[done] = ability.getEnum().name();
             done++;
         }
-        return abilities;
+        return abilityArray;
     }
 
     <T, Z> AdventureItem setKey(String id, PersistentDataType<T, Z> dataType, Z data){

@@ -1,9 +1,9 @@
-package me.will0mane.plugins.adventure.systems.items.abilities.triggers;
+package me.will0mane.plugins.adventure.game.items.abilities.triggers;
 
+import me.will0mane.plugins.adventure.game.projectiles.ArrowProjectile;
 import me.will0mane.plugins.adventure.systems.items.abilities.Abilities;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.InteractAbility;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -24,7 +24,8 @@ public class ArrowTrigger extends ItemAbility<InteractAbility> {
         event.getAction() == Action.LEFT_CLICK_BLOCK ||
         event.getAction() == Action.PHYSICAL) return;
         Player player = event.getPlayer();
-        player.launchProjectile(Arrow.class);
+        ArrowProjectile arrow = new ArrowProjectile().setDisappearOnHit(true);
+        arrow.shoot(player, 0);
     }
 
     @Override

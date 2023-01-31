@@ -6,3 +6,8 @@ loadbefore: [ ProtocolLib ]
 depend: [ ProtocolLib ]
 authors: [ Will0mane ]
 description: Adventure Plugin
+commands:
+  giveitem:
+    description: Gives a specific AdventureItem to the player.
+  clearinv:
+    description: Clears the inventory.

@@ -1,17 +1,16 @@
 package me.will0mane.plugins.adventure.systems.items.abilities.data;
 
 import me.will0mane.plugins.adventure.systems.items.abilities.AbilityData;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.block.BlockEvent;
 
 import java.util.UUID;
 
-public class InteractAbility extends AbilityData {
+public class BlockActionAbility extends AbilityData {
 
     protected final String id;
-    protected final PlayerInteractEvent event;
+    protected final BlockEvent event;
 
-    public InteractAbility(PlayerInteractEvent event){
+    public BlockActionAbility(BlockEvent event){
         this.id = UUID.randomUUID().toString();
         this.event = event;
     }
@@ -23,10 +22,10 @@ public class InteractAbility extends AbilityData {
 
     @Override
     public String activationMethodName() {
-        return "ON INTERACT";
+        return "ON BLOCK ACTION";
     }
 
-    public PlayerInteractEvent getEvent() {
+    public BlockEvent getEvent() {
         return event;
     }
 }

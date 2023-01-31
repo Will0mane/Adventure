@@ -6,6 +6,7 @@ import me.will0mane.plugins.adventure.systems.items.abilities.Abilities;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -16,7 +17,9 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class AdventureItem {
 
-    protected static final Map<UUID, AdventureItem> items = new HashMap<>();
+    private static final Map<UUID, AdventureItem> items = new HashMap<>();
+    private static final Map<UUID, List<ItemAbility<?>>> abilityMap = new HashMap<>();
+    private static final NamespacedKey abilityKey = Adventure.getKey("abilities");
 
     public static Optional<AdventureItem> getItem(ItemStack item) {
         if(item == null) return Optional.empty();
@@ -44,8 +47,8 @@ public class AdventureItem {
         if(item.getItemMeta() == null) return Collections.emptyList();
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer c = meta.getPersistentDataContainer();
-        if(c.has(Adventure.getKey("abilities"), DataType.STRING_ARRAY)){
-            String[] abilities = c.get(Adventure.getKey("abilities"), DataType.STRING_ARRAY);
+        if(c.has(abilityKey, DataType.STRING_ARRAY)){
+            String[] abilities = c.get(abilityKey, DataType.STRING_ARRAY);
             if(abilities == null) return new ArrayList<>();
             Abilities[] abs = new Abilities[abilities.length];
             int done = 0;

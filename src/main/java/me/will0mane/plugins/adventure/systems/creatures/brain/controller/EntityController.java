@@ -18,8 +18,6 @@ public class EntityController {
     private boolean isInAir = false;
 
     public EntityController(Creature creature){
-        this.targetMovement = creature.getLocation();
-        this.targetLook = creature.getLocation();
         this.target = creature;
         this.brain = creature;
     }

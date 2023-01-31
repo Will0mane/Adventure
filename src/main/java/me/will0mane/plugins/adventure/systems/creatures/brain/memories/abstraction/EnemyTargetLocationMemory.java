@@ -1,6 +1,7 @@
 package me.will0mane.plugins.adventure.systems.creatures.brain.memories.abstraction;
 
 import me.will0mane.plugins.adventure.systems.creatures.Creature;
+import me.will0mane.plugins.adventure.systems.creatures.brain.goals.abstraction.AttackEnemyGoal;
 import me.will0mane.plugins.adventure.systems.creatures.brain.memories.EntityMemories;
 import org.bukkit.Location;
 
@@ -21,7 +22,7 @@ public class EnemyTargetLocationMemory extends EntityMemories {
     @Override
     public Consumer<Creature> onMemoryRemember() {
         if(creature.getBrain().canSeeEntity(enemy)) return cr ->{
-//          creature.getBrain().addGoal(0, new AttackEnemyGoal(creature, cr));
+          creature.getBrain().setTarget(enemy);
         };
         return null;
     }

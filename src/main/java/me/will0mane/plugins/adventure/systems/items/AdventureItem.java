@@ -1,7 +1,10 @@
 package me.will0mane.plugins.adventure.systems.items;
 
 import com.jeff_media.morepersistentdatatypes.DataType;
+import lombok.Getter;
+import lombok.Setter;
 import me.will0mane.plugins.adventure.Adventure;
+import me.will0mane.plugins.adventure.systems.blueprints.abs.BlueprintCAdventureItemLoreGeneration;
 import me.will0mane.plugins.adventure.systems.items.abilities.Abilities;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import org.bukkit.ChatColor;
@@ -67,11 +70,16 @@ public class AdventureItem {
     }
 
     //Params
-    protected ItemStack original;
-    protected List<ItemAbility<?>> abilities;
-    protected List<String> lore;
-    protected List<String> description;
-    protected UUID uuid;
+    private final ItemStack original;
+    @Getter
+    @Setter
+    private List<ItemAbility<?>> abilities;
+    @Setter
+    private List<String> lore;
+    @Getter
+    @Setter
+    private List<String> description;
+    private final UUID uuid;
 
     public AdventureItem(ItemStack itemStack, UUID uuid, List<ItemAbility<?>> abilities){
         this.original = itemStack;
@@ -145,27 +153,7 @@ public class AdventureItem {
     }
 
     public AdventureItem generateLore(){
-        List<String> generatedLore = new ArrayList<>();
-        if(!description.isEmpty()) {
-            generatedLore.add("");
-            generatedLore.addAll(description);
-            generatedLore.add("");
-        }
-
-        if(!abilities.isEmpty()){
-            if(abilities.size() < 5){
-                for (ItemAbility<?> ability : abilities) {
-                    generatedLore.add("");
-                    generatedLore.add("&6&l" + ability.activationMethodName() + " " + ability.getName().toUpperCase(Locale.ROOT) + ":");
-                    generatedLore.addAll(ability.getDescription());
-                }
-            }else {
-                generatedLore.add("");
-                generatedLore.add("&e&oMore than 5 abilities!");
-            }
-        }
-
-        lore = generatedLore;
+        lore = new BlueprintCAdventureItemLoreGeneration(this).run();
         return this;
     }
 

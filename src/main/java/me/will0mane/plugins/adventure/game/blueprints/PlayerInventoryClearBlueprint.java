@@ -5,14 +5,13 @@ import me.will0mane.plugins.adventure.game.blueprints.types.PlayerRelatedBluepri
 import me.will0mane.plugins.adventure.systems.blueprints.Blueprint;
 import me.will0mane.plugins.adventure.systems.blueprints.nodes.BlueprintNode;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 public class PlayerInventoryClearBlueprint extends Blueprint<PlayerRelatedBlueprintType> {
 
-    private PlayerNode node;
+    private final PlayerNode node;
 
     public PlayerInventoryClearBlueprint(UUID uuid){
         node = new PlayerNode().setExecution(player -> player.getInventory().clear()).setPlayer(uuid);

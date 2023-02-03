@@ -112,6 +112,6 @@ public enum ChatColors {
             to_translate = to_translate.replace(chatColors.getRepresenting(), chatColors.getColor(
                     stripAllColors(to_translate).replace("TheAlternativeGame >", "")));
         }
-        return to_translate;
+        return ChatColor.translateAlternateColorCodes('&', to_translate);
     }
 }

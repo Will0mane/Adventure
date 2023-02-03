@@ -3,6 +3,7 @@ package me.will0mane.plugins.adventure.systems.listeners;
 import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.BlockActionAbility;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.InteractAbility;
+import me.will0mane.plugins.adventure.systems.listeners.abs.AdventureListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -16,10 +17,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Objects;
 import java.util.Optional;
 
-public class InteractListener implements Listener {
+public class InteractListener extends AdventureListener {
 
     public InteractListener(JavaPlugin plugin){
-        Bukkit.getPluginManager().registerEvents(this, plugin);
+        super(plugin);
     }
 
     @EventHandler

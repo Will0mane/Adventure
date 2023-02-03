@@ -11,3 +11,5 @@ commands:
     description: Gives a specific AdventureItem to the player.
   clearinv:
     description: Clears the inventory.
+  shblock:
+    description: Spawns a hacking block

@@ -15,9 +15,8 @@ public class ClearInventoryCommand extends CommandBuilder {
 
     @Override
     public CommandResponse trigger(CommandSender sender, Command command, String label, String[] args) throws Exception {
-        if(!(sender instanceof Player)) return CommandResponse.ONLY_PLAYERS;
+        if(!(sender instanceof Player player)) return CommandResponse.ONLY_PLAYERS;
         if(!sender.hasPermission("adventure.clearinv")) return CommandResponse.NO_PERMISSION;
-        Player player = (Player) sender;
         PlayerInventoryClearBlueprint blueprint = new PlayerInventoryClearBlueprint(player.getUniqueId());
         blueprint.execPin();
         return new CommandResponse(commandBuilder -> {

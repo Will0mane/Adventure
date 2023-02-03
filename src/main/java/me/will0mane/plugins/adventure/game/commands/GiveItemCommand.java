@@ -19,10 +19,9 @@ public class GiveItemCommand extends CommandBuilder {
 
     @Override
     public CommandResponse trigger(CommandSender sender, Command command, String label, String[] args) throws InvocationTargetException, InstantiationException, IllegalAccessException {
-        if(!(sender instanceof Player)) return CommandResponse.ONLY_PLAYERS;
+        if(!(sender instanceof Player player)) return CommandResponse.ONLY_PLAYERS;
         if(!(sender.hasPermission("adventure.giveitem"))) return CommandResponse.NO_PERMISSION;
         if(args.length < 1) return new CommandResponse(commandBuilder -> commandBuilder.sendMessageToSender("&cPlease specify an item!"));
-        Player player = (Player) sender;
         String item = args[0];
         Optional<Class<?>> optionalBuilder = AdventureItemHandler.getBuilder(item.toLowerCase());
         if(optionalBuilder.isEmpty()) return new CommandResponse(commandBuilder -> commandBuilder.sendMessageToSender("&cThe item you specified does not exist!"));

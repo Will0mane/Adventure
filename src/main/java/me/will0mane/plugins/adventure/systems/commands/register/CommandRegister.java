@@ -2,6 +2,7 @@ package me.will0mane.plugins.adventure.systems.commands.register;
 
 import me.will0mane.plugins.adventure.game.commands.ClearInventoryCommand;
 import me.will0mane.plugins.adventure.game.commands.SpawnHackingBlock;
+import me.will0mane.plugins.adventure.game.commands.SpawnNPCCommand;
 import me.will0mane.plugins.adventure.systems.commands.CommandBuilder;
 import me.will0mane.plugins.adventure.game.commands.GiveItemCommand;
 
@@ -32,5 +33,6 @@ public class CommandRegister {
         registerCommand("giveitem", new GiveItemCommand());
         registerCommand("clearinv", new ClearInventoryCommand());
         registerCommand("shblock", new SpawnHackingBlock());
+        registerCommand("spawnnpc", new SpawnNPCCommand());
     }
 }

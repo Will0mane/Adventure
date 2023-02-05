@@ -4,7 +4,8 @@ import com.jeff_media.morepersistentdatatypes.DataType;
 import lombok.Getter;
 import lombok.Setter;
 import me.will0mane.plugins.adventure.Adventure;
-import me.will0mane.plugins.adventure.systems.blueprints.abs.BlueprintCAdventureItemLoreGeneration;
+import me.will0mane.plugins.adventure.game.executors.ExecutorItemRename;
+import me.will0mane.plugins.adventure.systems.items.blueprints.BlueprintCAdventureItemLoreGeneration;
 import me.will0mane.plugins.adventure.systems.items.abilities.Abilities;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import org.bukkit.ChatColor;
@@ -20,9 +21,12 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class AdventureItem {
 
+    //GLOBAL
+
     private static final Map<UUID, AdventureItem> items = new HashMap<>();
     private static final Map<UUID, List<ItemAbility<?>>> abilityMap = new HashMap<>();
     private static final NamespacedKey abilityKey = Adventure.getKey("abilities");
+    private static final ExecutorItemRename itemRename = new ExecutorItemRename();
 
     public static Optional<AdventureItem> getItem(ItemStack item) {
         if(item == null) return Optional.empty();
@@ -69,7 +73,10 @@ public class AdventureItem {
         }
     }
 
+    //CLASS
+
     //Params
+    @Getter
     private final ItemStack original;
     @Getter
     @Setter
@@ -133,11 +140,7 @@ public class AdventureItem {
     }
 
     public AdventureItem rename(String newName){
-        ItemMeta meta = original.getItemMeta();
-        if(meta == null) return this;
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', newName));
-        applyMeta(meta);
-        return this;
+        return itemRename.apply(this, newName);
     }
 
     public void inputAbility(Class<?> inputType, Object... arguments) {
@@ -203,7 +206,7 @@ public class AdventureItem {
         return strings;
     }
 
-    private ItemStack applyMeta(ItemMeta meta) {
+    public ItemStack applyMeta(ItemMeta meta) {
         original.setItemMeta(meta);
         return original;
     }

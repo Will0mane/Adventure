@@ -10,13 +10,13 @@ import java.util.List;
 
 public class ChatUtils {
 
-    public static String translate(String to_translate){
-        return ChatColors.translate(to_translate);
+    public static String translate(String message){
+        return ChatColors.translate(message);
     }
 
-    public static void sendMessageTranslated(Player p, String... to_translate){
-        for(String s : to_translate){
-            p.sendMessage(translate(s));
+    public static void sendMessageTranslated(Player p, String... messages){
+        for(String message : messages){
+            p.sendMessage(translate(message));
         }
     }
 
@@ -56,18 +56,18 @@ public class ChatUtils {
         return list;
     }
 
-    public static String getRainbowVersion(String to_rainbow){
+    public static String getRainbowVersion(String message){
         int done = 0;
-        String neu = "";
-        for(String s : to_rainbow.split("")){
+        StringBuilder builder = new StringBuilder();
+        for(String piece : message.split("")){
             if(done >= ColorsNoStyles.values().length){
                 done = 0;
             }
             ColorsNoStyles colorsNoStyles = ColorsNoStyles.values()[done];
-            neu = neu + colorsNoStyles.getColor() + s;
+            builder.append(colorsNoStyles.getColor()).append(piece);
             done++;
         }
-        return neu;
+        return builder.toString();
     }
     public static String getColoredBoolean(boolean bool){
         if(bool)
@@ -76,10 +76,9 @@ public class ChatUtils {
             return translate("%%red%%No");
     }
 
-    public static void sendMessageTranslated(CommandSender sender, String... to_translate){
-        for(String s : to_translate){
-            String translated = translate(s);
-            sender.sendMessage(translated);
+    public static void sendMessageTranslated(CommandSender sender, String... messages){
+        for(String message : messages){
+            sender.sendMessage(translate(message));
         }
     }
 

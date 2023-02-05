@@ -1,8 +1,8 @@
-package me.will0mane.plugins.adventure.systems.blueprints.abs;
+package me.will0mane.plugins.adventure.systems.items.blueprints;
 
 import me.will0mane.plugins.adventure.systems.blueprints.Blueprint;
-import me.will0mane.plugins.adventure.systems.blueprints.abs.nodes.loregen.LoreGenerationNode;
-import me.will0mane.plugins.adventure.systems.blueprints.abs.types.AdventureItemRelatedBlueprint;
+import me.will0mane.plugins.adventure.systems.items.blueprints.nodes.LoreGenerationNode;
+import me.will0mane.plugins.adventure.systems.items.blueprints.types.AdventureItemRelatedBlueprint;
 import me.will0mane.plugins.adventure.systems.blueprints.nodes.BlueprintNode;
 import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 

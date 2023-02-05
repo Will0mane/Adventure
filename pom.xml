@@ -49,6 +49,10 @@
                                     <pattern>com.jeff_media.customblockdata</pattern>
                                     <shadedPattern>me.will0mane.plugins.adventure.customblockdata</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>org.willomane.mongowillo</pattern>
+                                    <shadedPattern>me.will0mane.plugins.adventure.mongowillo</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
@@ -79,6 +83,10 @@
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>ranull-repo-external</id>
+            <url>https://repo.ranull.com/maven/external/</url>
         </repository>
     </repositories>
 
@@ -117,6 +125,12 @@
             <groupId>com.github.Will0mane</groupId>
             <artifactId>MongoWillo</artifactId>
             <version>2.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.sergiferry</groupId>
+            <artifactId>playernpc</artifactId>
+            <version>2023.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

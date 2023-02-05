@@ -1,4 +1,4 @@
-package me.will0mane.plugins.adventure.systems.blueprints.abs.types;
+package me.will0mane.plugins.adventure.systems.items.blueprints.types;
 
 import me.will0mane.plugins.adventure.systems.blueprints.types.BlueprintType;
 

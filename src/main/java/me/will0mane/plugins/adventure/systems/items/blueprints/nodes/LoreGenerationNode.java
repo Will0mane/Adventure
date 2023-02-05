@@ -1,4 +1,4 @@
-package me.will0mane.plugins.adventure.systems.blueprints.abs.nodes.loregen;
+package me.will0mane.plugins.adventure.systems.items.blueprints.nodes;
 
 import me.will0mane.plugins.adventure.systems.blueprints.nodes.BlueprintNode;
 import me.will0mane.plugins.adventure.systems.items.AdventureItem;

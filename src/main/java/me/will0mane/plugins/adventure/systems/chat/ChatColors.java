@@ -68,7 +68,7 @@ public enum ChatColors {
     private final String d;
     private final Function<String, String> f;
 
-    ChatColors(String representing, String color, String data,Function<String, String> function){
+    ChatColors(String representing, String color, String data, Function<String, String> function){
         r = representing;
         c = color;
         d = data;
@@ -107,11 +107,11 @@ public enum ChatColors {
         return r;
     }
 
-    public static String translate(String to_translate) {
+    public static String translate(String message) {
         for(ChatColors chatColors : values()){
-            to_translate = to_translate.replace(chatColors.getRepresenting(), chatColors.getColor(
-                    stripAllColors(to_translate).replace("TheAlternativeGame >", "")));
+            message = message.replace(chatColors.getRepresenting(), chatColors.getColor(
+                    stripAllColors(message)));
         }
-        return ChatColor.translateAlternateColorCodes('&', to_translate);
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 }

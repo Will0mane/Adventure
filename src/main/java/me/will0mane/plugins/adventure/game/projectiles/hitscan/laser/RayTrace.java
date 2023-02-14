@@ -5,12 +5,15 @@ import org.bukkit.World;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@SuppressWarnings("unused")
 public class RayTrace {
 
     //origin = start position
     //direction = direction in which the raytrace will go
-    Vector origin, direction;
+    Vector origin;
+    Vector direction;
 
     public RayTrace(Vector origin, Vector direction) {
         this.origin = origin;
@@ -29,8 +32,8 @@ public class RayTrace {
     }
 
     //get all postions on a raytrace
-    public ArrayList<Vector> traverse(double blocksAway, double accuracy) {
-        ArrayList<Vector> positions = new ArrayList<>();
+    public List<Vector> traverse(double blocksAway, double accuracy) {
+        List<Vector> positions = new ArrayList<>();
         for (double d = 0; d <= blocksAway; d += accuracy) {
             positions.add(getPosition(d));
         }
@@ -39,7 +42,7 @@ public class RayTrace {
 
     //intersection detection for current raytrace with return
     public Vector positionOfIntersection(Vector min, Vector max, double blocksAway, double accuracy) {
-        ArrayList<Vector> positions = traverse(blocksAway, accuracy);
+        List<Vector> positions = traverse(blocksAway, accuracy);
         for (Vector position : positions) {
             if (intersects(position, min, max)) {
                 return position;
@@ -50,7 +53,7 @@ public class RayTrace {
 
     //intersection detection for current raytrace
     public boolean intersects(Vector min, Vector max, double blocksAway, double accuracy) {
-        ArrayList<Vector> positions = traverse(blocksAway, accuracy);
+        List<Vector> positions = traverse(blocksAway, accuracy);
         for (Vector position : positions) {
             if (intersects(position, min, max)) {
                 return true;
@@ -65,11 +68,11 @@ public class RayTrace {
             return false;
         } else if (position.getY() < min.getY() || position.getY() > max.getY()) {
             return false;
-        } else return !(position.getZ() < min.getZ()) && !(position.getZ() > max.getZ());
+        } else return position.getZ() >= min.getZ() && position.getZ() <= max.getZ();
     }
 
     //debug / effects
-    public void highlight(World world, int amount, double blocksAway, double accuracy, String particle, double particleData){
+    public void highlight(World world, double blocksAway, double accuracy, String particle, double particleData){
         for(Vector position : traverse(blocksAway,accuracy)){
             if(position != null){
                 ParticleUtils.spawnParticleYaml(particle, position.toLocation(world));

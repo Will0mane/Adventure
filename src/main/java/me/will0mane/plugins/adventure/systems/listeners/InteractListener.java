@@ -4,7 +4,10 @@ import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.BlockActionAbility;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.InteractAbility;
 import me.will0mane.plugins.adventure.systems.listeners.abs.AdventureListener;
+import me.will0mane.plugins.adventure.systems.player.AdventurePlayer;
+import me.will0mane.plugins.adventure.systems.sessions.abs.PlayerSession;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,22 +27,27 @@ public class InteractListener extends AdventureListener {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent e){
-        if(e.getItem() == null) return;
-        if(!e.hasItem()) return;
-        inputAbility(e.getItem(), InteractAbility.class, e);
+    public void onInteract(PlayerInteractEvent event){
+        if(event.getItem() == null) return;
+        if(!event.hasItem()) return;
+        AdventurePlayer player = AdventurePlayer.of(event.getPlayer());
+        Optional<PlayerSession> optionalSession = player.getSession();
+
+        if(optionalSession.isEmpty()) return;
+
+        inputAbility(event.getItem(), InteractAbility.class, event);
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent e){
-        inputAbility(Objects.requireNonNull(e.getPlayer().getEquipment()).getItemInMainHand(),
-                BlockActionAbility.class, e);
+    public void onBlockBreak(BlockBreakEvent event){
+        inputAbility(Objects.requireNonNull(event.getPlayer().getEquipment()).getItemInMainHand(),
+                BlockActionAbility.class, event);
     }
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e){
-        inputAbility(Objects.requireNonNull(e.getPlayer().getEquipment()).getItemInMainHand(),
-                BlockActionAbility.class, e);
+    public void onBlockPlace(BlockPlaceEvent event){
+        inputAbility(Objects.requireNonNull(event.getPlayer().getEquipment()).getItemInMainHand(),
+                BlockActionAbility.class, event);
     }
 
     private void inputAbility(ItemStack itemStack, Class<?> clazz, Event event){

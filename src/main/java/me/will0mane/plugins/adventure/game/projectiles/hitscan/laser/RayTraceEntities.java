@@ -11,9 +11,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+
+@SuppressWarnings("unused")
 public class RayTraceEntities {
 
-    public static Collection<Entity> rayTrace(Location startLoc, Vector direction, double maxDistance, double raySize){
+    private RayTraceEntities(){}
+
+    public static Collection<Entity> rayTrace(Location startLoc, Vector direction, double maxDistance){
         Vector startPos = startLoc.toVector();
         Vector dir = direction.clone().normalize().multiply(maxDistance);
         BoundingBox boundingBox = BoundingBox.of(startPos, startPos).expandDirectional(dir).expand(0);
@@ -32,7 +36,7 @@ public class RayTraceEntities {
 
     public static List<Entity> rayTraceEntitiesNew(Location startLoc, Vector direction, double maxDistance, double raySize, double step){
         List<Entity> entityCollection = new ArrayList<>();
-        RayTrace trace = new RayTrace(startLoc.toVector(), startLoc.getDirection());
+        RayTrace trace = new RayTrace(startLoc.toVector(), direction == null ? startLoc.getDirection() : direction);
         for(Vector v : trace.traverse(maxDistance, step)){
             Location location = v.toLocation(Objects.requireNonNull(startLoc.getWorld()));
             entityCollection.addAll(Objects.requireNonNull(location.getWorld()).getNearbyEntities(location, raySize, raySize, raySize));

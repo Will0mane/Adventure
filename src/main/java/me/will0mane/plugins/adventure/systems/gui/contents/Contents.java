@@ -25,6 +25,7 @@ public class Contents {
 
     public Contents(AdventureGUI gui){
         this.gui = gui;
+        contents = new Item[gui.getBuilder().getRows() + 1][gui.getBuilder().getColumn() + 1];
     }
 
     public Optional<Item> getItem(int row, int column){
@@ -44,7 +45,7 @@ public class Contents {
 
         contents[row][column] = item;
 
-        update(row, column, item != null ? item.getItem() : null);
+        update(row, column, item.getItem());
         return this;
     }
 

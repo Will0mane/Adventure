@@ -8,6 +8,7 @@ import org.bukkit.util.Vector;
 import java.util.Collection;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Laser {
 
     private final Location startLoc;
@@ -48,8 +49,8 @@ public class Laser {
         return step;
     }
 
-    public void highlight(String particle, int amount, double accuracy, double blocksAway, double particleData){
-        new RayTrace(getStartLoc().toVector(), getVector()).highlight(startLoc.getWorld(), amount, blocksAway, accuracy, particle, particleData);
+    public void highlight(String particle, double accuracy, double blocksAway, double particleData){
+        new RayTrace(getStartLoc().toVector(), getVector()).highlight(startLoc.getWorld(), blocksAway, accuracy, particle, particleData);
     }
 
     public Collection<Entity> rayCastEntities(){

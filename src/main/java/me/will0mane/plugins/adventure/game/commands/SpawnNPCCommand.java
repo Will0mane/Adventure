@@ -23,10 +23,8 @@ public class SpawnNPCCommand extends CommandBuilder {
         if(!(sender.hasPermission("adventure.spawnnpc"))) return CommandResponse.NO_PERMISSION;
         if(args.length < 1) return new CommandResponse(commandBuilder -> commandBuilder.sendMessageToSender("&cPlease specify an npc!"));
         String npc = args[0];
-        Optional<NPC> optionalNPC = Adventure.getNPCManager().getNPC(npc);
-        if(optionalNPC.isEmpty()) return new CommandResponse(commandBuilder -> {
-            commandBuilder.sendMessageToSender("&cThis npc doesn't exist!");
-        });
+        Optional<NPC> optionalNPC = Adventure.getRegistry().getNPCManager().getNPC(npc);
+        if(optionalNPC.isEmpty()) return new CommandResponse(commandBuilder -> commandBuilder.sendMessageToSender("&cThis npc doesn't exist!"));
         NPC actualNPC = optionalNPC.get();
         actualNPC.createNPC(player.getLocation());
         return new CommandResponse(commandBuilder -> commandBuilder.sendMessageToSender("&aSuccess!"));

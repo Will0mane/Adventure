@@ -22,8 +22,8 @@ public class AdventureStatManager {
     }
 
     public void registerDefaultsMongo(){
-//        registerStat("strength", new MongoStrength(Adventure.getMongoDB()));
-//        registerStat("protection", new MongoProtection(Adventure.getMongoDB()));
+        registerStat("strength", new MongoStrength(Adventure.getRegistry().getMongoDB()));
+        registerStat("protection", new MongoProtection(Adventure.getRegistry().getMongoDB()));
     }
 
 }

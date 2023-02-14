@@ -8,6 +8,8 @@ import java.util.List;
 
 public class ShapesUtils {
 
+    private ShapesUtils(){}
+
     public static List<Block> getSphere(Location location, int radius, boolean empty) {
         List<Block> blocks = new ArrayList<>();
 

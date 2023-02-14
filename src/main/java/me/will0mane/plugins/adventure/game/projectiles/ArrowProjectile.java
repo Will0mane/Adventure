@@ -8,10 +8,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
+import java.util.function.Consumer;
+
+@SuppressWarnings("unused")
 public class ArrowProjectile extends AdventureProjectile {
 
-    protected Arrow arrow;
-    protected boolean disappearOnHit = false;
+    private Arrow arrow;
+    private boolean disappearOnHit = false;
+    private Consumer<Arrow> onHit;
 
     public ArrowProjectile(){
     }
@@ -44,14 +48,21 @@ public class ArrowProjectile extends AdventureProjectile {
         }
     }
 
+    public ArrowProjectile setOnHit(Consumer<Arrow> onHit) {
+        this.onHit = onHit;
+        return this;
+    }
+
     @Override
     public void onHitBlock(Block block) {
         if(disappearOnHit && arrow != null) arrow.remove();
+        if(onHit != null) onHit.accept(arrow);
     }
 
     @Override
     public void onHitEntity(Entity entity) {
         if(disappearOnHit && arrow != null) arrow.remove();
+        if(onHit != null) onHit.accept(arrow);
     }
 
     @Override

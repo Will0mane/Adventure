@@ -1,31 +1,23 @@
 package me.will0mane.plugins.adventure.systems.workers.tasks;
 
+import lombok.Getter;
 import me.will0mane.plugins.adventure.systems.workers.Worker;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.function.Consumer;
+public abstract class WorkerTask extends BukkitRunnable {
 
-public class WorkerTask extends BukkitRunnable {
-
+    @Getter
     private final Worker<?> worker;
-    private final Consumer<Worker<?>> workerConsumer;
     private final int taskID;
 
-    public WorkerTask(Worker<?> worker, Consumer<Worker<?>> runConsumer){
+    protected WorkerTask(Worker<?> worker){
         this.worker = worker;
-        this.workerConsumer = runConsumer;
         this.taskID = -1;
     }
 
-    public WorkerTask(Worker<?> worker, Consumer<Worker<?>> runConsumer, int taskID){
+    protected WorkerTask(Worker<?> worker, int taskID){
         this.worker = worker;
-        this.workerConsumer = runConsumer;
         this.taskID = taskID;
-    }
-
-    @Override
-    public void run() {
-        workerConsumer.accept(worker);
     }
 
     @Override

@@ -58,6 +58,7 @@ public abstract class AdventureBlock implements Listener {
         return dataContainer.has(namespacedKey, dataType);
     }
 
+    @SuppressWarnings("unused")
     public Object getData(NamespacedKey namespacedKey, PersistentDataType<?,?> dataType, Object defaultObj){
         if(!hasKey(namespacedKey, dataType)) return defaultObj;
         return dataContainer.get(namespacedKey, dataType);

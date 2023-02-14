@@ -33,9 +33,7 @@ public class CrafterNPC implements me.will0mane.plugins.adventure.systems.npcs.N
         npcGlobal.setInteractCooldown(60);
         npcGlobal.setShowOnTabList(false);
         npcGlobal.setTextOpacity(NPC.Hologram.Opacity.LOW);
-        npcGlobal.addCustomClickAction(NPC.Interact.ClickType.RIGHT_CLICK, (npc, player) -> {
-            player.openInventory(Bukkit.createInventory(player, InventoryType.CRAFTING));
-        });
+        npcGlobal.addCustomClickAction(NPC.Interact.ClickType.RIGHT_CLICK, (npc, player) -> player.openInventory(Bukkit.createInventory(player, InventoryType.CRAFTING)));
         npcGlobal.createAllPlayers();
         return this;
     }

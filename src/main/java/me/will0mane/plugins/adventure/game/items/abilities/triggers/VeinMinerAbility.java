@@ -24,8 +24,7 @@ public class VeinMinerAbility extends ItemAbility<BlockActionAbility> {
     @Override
     public void trigger(BlockActionAbility data) {
         BlockEvent cause = data.getEvent();
-        if(!(cause instanceof BlockBreakEvent)) return;
-        BlockBreakEvent event = (BlockBreakEvent) cause;
+        if(!(cause instanceof BlockBreakEvent event)) return;
         Block block = event.getBlock();
         ShapesUtils.getSphere(block.getLocation(), 5, true).forEach(relative -> {
             if(event.isDropItems()) relative.getDrops(event.getPlayer().getItemInUse()).forEach(itemStack ->

@@ -1,6 +1,7 @@
 package me.will0mane.plugins.adventure.systems.listeners;
 
 import me.will0mane.plugins.adventure.Adventure;
+import me.will0mane.plugins.adventure.systems.debug.DebugHandler;
 import me.will0mane.plugins.adventure.systems.listeners.abs.AdventureListener;
 import me.will0mane.plugins.adventure.systems.sessions.abs.PlayerSession;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class JoinListener extends AdventureListener {
 
@@ -19,7 +21,9 @@ public class JoinListener extends AdventureListener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         event.setJoinMessage(null);
-        Adventure.getRegistry().getSessionsHandler().registerSession(event.getPlayer().getUniqueId());
+        UUID uuid = event.getPlayer().getUniqueId();
+        Adventure.getRegistry().getSessionsHandler().registerSession(uuid);
+        DebugHandler.sendDebug("&aCreating Session for &b" + uuid.toString() + "&a!");
     }
 
     @EventHandler

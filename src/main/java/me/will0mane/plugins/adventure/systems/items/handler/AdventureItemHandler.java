@@ -1,6 +1,7 @@
 package me.will0mane.plugins.adventure.systems.items.handler;
 
 import me.will0mane.plugins.adventure.game.items.types.*;
+import me.will0mane.plugins.adventure.game.items.types.custom.PowerfulBow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,5 +28,6 @@ public class AdventureItemHandler {
         registerItem("fast_bow", FastBow.class);
         registerItem("sniper", Sniper.class);
         registerItem("vein_miner", VeinMinerPickaxe.class);
+        registerItem("powerful_bow", PowerfulBow.class);
     }
 }

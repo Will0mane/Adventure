@@ -4,6 +4,7 @@ main: me.will0mane.plugins.adventure.Adventure
 api-version: 1.17
 loadbefore: [ ProtocolLib, PlayerNPC ]
 depend: [ ProtocolLib, PlayerNPC ]
+softdepend: [ MongoWillo ]
 authors: [ Will0mane ]
 description: Adventure Plugin
 commands:
@@ -15,3 +16,7 @@ commands:
     description: Spawns a hacking block
   spawnnpc:
     description: Spawns an NPC
+  debug:
+    description: Debugs
+  stats:
+    description: Stats command.

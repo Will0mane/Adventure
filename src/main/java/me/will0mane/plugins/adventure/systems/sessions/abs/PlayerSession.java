@@ -24,7 +24,7 @@ public class PlayerSession extends Session {
 
     @Override
     public void terminate() {
-        Adventure.getModeration()
+        Adventure.getRegistry().getModeration()
                 .kickPlayer(player, "%%red%%Your session has been terminated!");
         invalidate();
     }

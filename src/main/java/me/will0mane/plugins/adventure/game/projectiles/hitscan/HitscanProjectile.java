@@ -1,6 +1,8 @@
 package me.will0mane.plugins.adventure.game.projectiles.hitscan;
 
 import me.will0mane.plugins.adventure.game.projectiles.hitscan.laser.Laser;
+import me.will0mane.plugins.adventure.systems.executors.Executor;
+import me.will0mane.plugins.adventure.systems.executors.hash.HashExecutor;
 import me.will0mane.plugins.adventure.systems.projectiles.AdventureProjectile;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,7 +18,6 @@ import java.util.List;
 public class HitscanProjectile extends AdventureProjectile {
 
     private final double raySize;
-    private final double step;
     private final double damage;
     private Location start;
     private Location end;
@@ -24,9 +25,8 @@ public class HitscanProjectile extends AdventureProjectile {
     private final Consumer<Entity> hitEntity;
     private Laser laser;
 
-    public HitscanProjectile(double raySize, double step, double damage, Consumer<Block> hitBlock, Consumer<Entity> hitEntity){
+    public HitscanProjectile(double raySize, double damage, Consumer<Block> hitBlock, Consumer<Entity> hitEntity){
         this.raySize = raySize;
-        this.step = step;
         this.damage = damage;
         this.hitBlock = hitBlock;
         this.hitEntity = hitEntity;
@@ -52,9 +52,9 @@ public class HitscanProjectile extends AdventureProjectile {
         }
     }
 
-    public void highlight(String particle, int amount, double accuracy, double data){
+    public void highlight(String particle, double accuracy, double data){
         if(getLaser() == null) return;
-        getLaser().highlight(particle, amount, accuracy, start.distance(end), data);
+        getLaser().highlight(particle, accuracy, start.distance(end), data);
     }
 
     public Laser getLaser() {

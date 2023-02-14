@@ -39,7 +39,7 @@ public abstract class AdventureGUI implements Listener {
     @Getter
     private final Map<UUID, Integer> taskMap = new HashMap<>();
 
-    public AdventureGUI(Builder builder){
+    protected AdventureGUI(Builder builder){
         this.builder = builder;
         this.invUUID = UUID.randomUUID();
     }
@@ -49,10 +49,12 @@ public abstract class AdventureGUI implements Listener {
     public abstract void onClose(Player player);
 
     public void open(Player player){
+        viewers.add(player.getUniqueId());
+        contents = new Contents(this);
         Inventory inventory = Bukkit.createInventory(player, builder.getColumn() * builder.getRows(),
                 ChatUtils.translate(builder.getTitle()));
         player.openInventory(inventory);
-        onInit(player, new Contents(this));
+        onInit(player, contents);
         taskMap.put(player.getUniqueId(),
                 new InventoryTask(player.getUniqueId(), this)
                         .runTaskTimer(Adventure.getInstance(), 0,1)
@@ -80,12 +82,15 @@ public abstract class AdventureGUI implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e){
-        ItemStack itemStack = e.getCursor();
+        ItemStack itemStack = e.getCurrentItem();
         if(itemStack == null || itemStack.getItemMeta() == null || !isInventoryItem(itemStack)) return;
+
         Optional<Item> optionalItem = getItemFromStack(itemStack);
         if(optionalItem.isEmpty()) return;
+
         Item item = optionalItem.get();
         if(item.getEventConsumer() == null) return;
+
         ClickEvent clickEvent = new ClickEvent(item, e.isLeftClick(), e.isShiftClick());
         Bukkit.getPluginManager().callEvent(clickEvent);
         item.getEventConsumer().accept(clickEvent);

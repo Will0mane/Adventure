@@ -1,11 +1,15 @@
 package me.will0mane.plugins.adventure.systems.player;
 
+import lombok.Getter;
+import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
+import me.will0mane.plugins.adventure.systems.sessions.abs.PlayerSession;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public class AdventurePlayer {
@@ -23,9 +27,12 @@ public class AdventurePlayer {
 
     //Class
     private final UUID uuid;
+    @Getter
+    private Optional<PlayerSession> session;
 
     public AdventurePlayer(UUID uuid){
         this.uuid = uuid;
+        session = Adventure.getRegistry().getSessionsHandler().get(uuid);
     }
 
     public Player getBukkitPlayer(){

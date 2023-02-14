@@ -1,10 +1,7 @@
 package me.will0mane.plugins.adventure.systems.commands.register;
 
-import me.will0mane.plugins.adventure.game.commands.ClearInventoryCommand;
-import me.will0mane.plugins.adventure.game.commands.SpawnHackingBlock;
-import me.will0mane.plugins.adventure.game.commands.SpawnNPCCommand;
+import me.will0mane.plugins.adventure.game.commands.*;
 import me.will0mane.plugins.adventure.systems.commands.CommandBuilder;
-import me.will0mane.plugins.adventure.game.commands.GiveItemCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,5 +31,7 @@ public class CommandRegister {
         registerCommand("clearinv", new ClearInventoryCommand());
         registerCommand("shblock", new SpawnHackingBlock());
         registerCommand("spawnnpc", new SpawnNPCCommand());
+        registerCommand("debug", new DebugCommand());
+        registerCommand("stats", new StatsCommand());
     }
 }

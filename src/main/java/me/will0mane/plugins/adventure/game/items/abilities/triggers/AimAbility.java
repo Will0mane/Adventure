@@ -3,15 +3,16 @@ package me.will0mane.plugins.adventure.game.items.abilities.triggers;
 import me.will0mane.plugins.adventure.systems.items.abilities.Abilities;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.InteractAbility;
-import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 public class AimAbility extends ItemAbility<InteractAbility> {
 

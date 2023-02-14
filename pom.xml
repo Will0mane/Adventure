@@ -49,10 +49,6 @@
                                     <pattern>com.jeff_media.customblockdata</pattern>
                                     <shadedPattern>me.will0mane.plugins.adventure.customblockdata</shadedPattern>
                                 </relocation>
-                                <relocation>
-                                    <pattern>org.willomane.mongowillo</pattern>
-                                    <shadedPattern>me.will0mane.plugins.adventure.mongowillo</shadedPattern>
-                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>

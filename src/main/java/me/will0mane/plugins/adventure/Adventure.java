@@ -1,7 +1,9 @@
 package me.will0mane.plugins.adventure;
 
 import lombok.Getter;
+import me.will0mane.plugins.adventure.systems.hologram.Hologram;
 import me.will0mane.plugins.adventure.systems.registry.AdventureRegistry;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,7 +25,12 @@ public final class Adventure extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Hologram.holograms.forEach(Hologram::removeHologram);
+        saveUserData();
+    }
 
+    private void saveUserData() {
+        Bukkit.getOnlinePlayers().forEach(player -> getRegistry().getAdventureStatManager().saveAll(player.getUniqueId()));
     }
 
     public static Adventure getInstance(){

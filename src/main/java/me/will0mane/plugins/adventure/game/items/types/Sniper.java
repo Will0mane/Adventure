@@ -3,7 +3,11 @@ package me.will0mane.plugins.adventure.game.items.types;
 import me.will0mane.plugins.adventure.game.items.abilities.triggers.AimAbility;
 import me.will0mane.plugins.adventure.game.items.abilities.triggers.SniperHitAbility;
 import me.will0mane.plugins.adventure.systems.items.builder.AdventureItemBuilder;
+import me.will0mane.plugins.adventure.systems.items.states.AdventureItemState;
 import org.bukkit.Material;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sniper extends AdventureItemBuilder {
     public Sniper() {

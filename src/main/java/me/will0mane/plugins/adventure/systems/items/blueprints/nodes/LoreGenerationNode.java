@@ -1,6 +1,7 @@
 package me.will0mane.plugins.adventure.systems.items.blueprints.nodes;
 
 import me.will0mane.plugins.adventure.systems.blueprints.nodes.BlueprintNode;
+import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 
@@ -13,7 +14,7 @@ public class LoreGenerationNode extends BlueprintNode {
 
     private final AdventureItem item;
 
-    public LoreGenerationNode(AdventureItem item){
+    public LoreGenerationNode(AdventureItem item) {
         this.item = item;
     }
 
@@ -30,24 +31,24 @@ public class LoreGenerationNode extends BlueprintNode {
     @Override
     public List<String> executePin(Object... objects) {
         List<String> generatedLore = new ArrayList<>();
-        if(!item.getDescription().isEmpty()) {
+        if (!item.getDescription().isEmpty()) {
             generatedLore.add("");
             generatedLore.addAll(item.getDescription());
             generatedLore.add("");
         }
 
-        if(!item.getDescription().isEmpty()){
-            if(item.getDescription().size() < 5){
+        if (!item.getDescription().isEmpty() && item.getDescription().size() < 5) {
+            if (item.getAbilities().size() > 5) {
+                generatedLore.add("");
+                generatedLore.add("&e&oMore than 5 abilities!");
+            } else {
                 for (ItemAbility<?> ability : item.getAbilities()) {
                     generatedLore.add("");
                     generatedLore.add("&6&l" + ability.activationMethodName() + " " + ability.getName().toUpperCase(Locale.ROOT) + ":");
                     generatedLore.addAll(ability.getDescription());
                 }
-            }else {
-                generatedLore.add("");
-                generatedLore.add("&e&oMore than 5 abilities!");
             }
         }
-        return generatedLore;
+        return ChatUtils.translateAList(generatedLore);
     }
 }

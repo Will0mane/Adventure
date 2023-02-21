@@ -20,3 +20,11 @@ commands:
     description: Debugs
   stats:
     description: Stats command.
+  setitemstate:
+    description: Sets an AdventureItem's current state.
+  statistics:
+    description: Statistics management
+  createpet:
+    description: Creates a pet item
+  pets:
+    description: Pets menu

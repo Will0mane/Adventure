@@ -6,6 +6,7 @@ import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.game.databases.mongodb.AdventureGameMongoDB;
 import me.will0mane.plugins.adventure.systems.commands.register.CommandRegister;
 import me.will0mane.plugins.adventure.systems.database.mongodb.MongoDBSettings;
+import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import me.will0mane.plugins.adventure.systems.items.handler.AdventureItemHandler;
 import me.will0mane.plugins.adventure.systems.listeners.manager.AdventureListenerManager;
 import me.will0mane.plugins.adventure.systems.moderation.Moderation;
@@ -29,6 +30,8 @@ public class AdventureRegistry {
     private AdventureGameMongoDB mongoDB;
     @Getter
     private AdventureStatManager adventureStatManager;
+    @Getter
+    private boolean serverOpen = false;
 
     public AdventureRegistry(){
         ListenerManager = new AdventureListenerManager();
@@ -54,6 +57,13 @@ public class AdventureRegistry {
             public void run() {
                 adventureStatManager = new AdventureStatManager();
                 adventureStatManager.registerDefaultsMongo();
+                new BukkitRunnable(){
+
+                    @Override
+                    public void run() {
+                        serverOpen = true;
+                    }
+                }.runTaskLater(Adventure.getInstance(), 20);
             }
         }.runTaskLater(Adventure.getInstance(), 60);
     }

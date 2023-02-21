@@ -1,7 +1,6 @@
 package me.will0mane.plugins.adventure.systems.items.abilities.data;
 
 import me.will0mane.plugins.adventure.systems.items.abilities.AbilityData;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.UUID;

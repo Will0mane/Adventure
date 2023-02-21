@@ -9,12 +9,12 @@ import java.util.function.Consumer;
 public class Item {
 
     @Getter
-    private ItemStack item;
+    private final ItemStack itemStack;
     @Getter
-    private Consumer<ClickEvent> eventConsumer;
+    private final Consumer<ClickEvent> eventConsumer;
 
-    private Item(ItemStack item, Consumer<ClickEvent> e){
-        this.item = item;
+    private Item(ItemStack itemStack, Consumer<ClickEvent> e){
+        this.itemStack = itemStack;
         this.eventConsumer = e;
     }
 
@@ -22,7 +22,7 @@ public class Item {
         return new Item(item, e);
     }
     public static Item empty(ItemStack item){
-        return of(item, null);
+        return of(item, clickEvent-> {});
     }
 
 }

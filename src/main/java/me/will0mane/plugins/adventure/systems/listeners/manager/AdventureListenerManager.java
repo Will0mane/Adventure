@@ -1,5 +1,6 @@
 package me.will0mane.plugins.adventure.systems.listeners.manager;
 
+import me.will0mane.plugins.adventure.game.listeners.DamageHologramListener;
 import me.will0mane.plugins.adventure.systems.listeners.DefaultListener;
 import me.will0mane.plugins.adventure.systems.listeners.InteractListener;
 import me.will0mane.plugins.adventure.systems.listeners.JoinListener;
@@ -27,6 +28,7 @@ public class AdventureListenerManager {
         registerListener("join", new JoinListener(javaPlugin));
         registerListener("interact", new InteractListener(javaPlugin));
         registerListener("default", new DefaultListener(javaPlugin));
+        registerListener("dmghologram", new DamageHologramListener(javaPlugin));
     }
 
 

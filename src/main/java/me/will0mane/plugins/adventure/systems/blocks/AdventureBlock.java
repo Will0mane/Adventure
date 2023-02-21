@@ -1,9 +1,9 @@
 package me.will0mane.plugins.adventure.systems.blocks;
 
-import com.jeff_media.customblockdata.CustomBlockData;
-import com.jeff_media.morepersistentdatatypes.DataType;
 import lombok.Getter;
 import me.will0mane.plugins.adventure.Adventure;
+import me.will0mane.plugins.adventure.lib.customblockdata.CustomBlockData;
+import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.DataType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

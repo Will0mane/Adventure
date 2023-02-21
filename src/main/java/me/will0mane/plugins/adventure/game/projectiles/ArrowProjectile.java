@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
@@ -16,6 +17,8 @@ public class ArrowProjectile extends AdventureProjectile {
     private Arrow arrow;
     private boolean disappearOnHit = false;
     private Consumer<Arrow> onHit;
+    private BiConsumer<Arrow, Block> hitBlock;
+    private BiConsumer<Arrow, Entity> hitEntity;
 
     public ArrowProjectile(){
     }
@@ -48,6 +51,16 @@ public class ArrowProjectile extends AdventureProjectile {
         }
     }
 
+    public ArrowProjectile setHitBlock(BiConsumer<Arrow, Block> hitBlock) {
+        this.hitBlock = hitBlock;
+        return this;
+    }
+
+    public ArrowProjectile setHitEntity(BiConsumer<Arrow, Entity> hitEntity) {
+        this.hitEntity = hitEntity;
+        return this;
+    }
+
     public ArrowProjectile setOnHit(Consumer<Arrow> onHit) {
         this.onHit = onHit;
         return this;
@@ -57,12 +70,14 @@ public class ArrowProjectile extends AdventureProjectile {
     public void onHitBlock(Block block) {
         if(disappearOnHit && arrow != null) arrow.remove();
         if(onHit != null) onHit.accept(arrow);
+        if(hitBlock != null) hitBlock.accept(arrow, block);
     }
 
     @Override
     public void onHitEntity(Entity entity) {
         if(disappearOnHit && arrow != null) arrow.remove();
         if(onHit != null) onHit.accept(arrow);
+        if(hitEntity != null)  hitEntity.accept(arrow, entity);
     }
 
     @Override

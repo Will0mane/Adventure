@@ -6,11 +6,8 @@ import me.will0mane.plugins.adventure.systems.items.abilities.data.InteractAbili
 import me.will0mane.plugins.adventure.systems.listeners.abs.AdventureListener;
 import me.will0mane.plugins.adventure.systems.player.AdventurePlayer;
 import me.will0mane.plugins.adventure.systems.sessions.abs.PlayerSession;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;

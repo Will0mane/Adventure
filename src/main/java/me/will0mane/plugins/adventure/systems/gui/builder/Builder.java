@@ -27,8 +27,8 @@ public class Builder {
     }
 
     public Builder setSize(int column, int rows){
-        this.column = column;
-        this.rows = rows;
+        setColumn(column);
+        setRows(rows);
         return this;
     }
 }

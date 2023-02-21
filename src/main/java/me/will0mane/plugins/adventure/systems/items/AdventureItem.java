@@ -1,10 +1,13 @@
 package me.will0mane.plugins.adventure.systems.items;
 
-import com.jeff_media.morepersistentdatatypes.DataType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.game.executors.ExecutorItemRename;
+import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.DataType;
+import me.will0mane.plugins.adventure.systems.exceptions.adventureitem.abs.NotHeadItemException;
+import me.will0mane.plugins.adventure.systems.items.blueprints.BlueprintCAdventureItemHeadData;
 import me.will0mane.plugins.adventure.systems.items.blueprints.BlueprintCAdventureItemLoreGeneration;
 import me.will0mane.plugins.adventure.systems.items.abilities.Abilities;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
@@ -15,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -22,12 +26,12 @@ import java.util.*;
 public class AdventureItem {
 
     //GLOBAL
-
     private static final Map<UUID, AdventureItem> items = new HashMap<>();
     private static final Map<UUID, List<ItemAbility<?>>> abilityMap = new HashMap<>();
     private static final NamespacedKey abilityKey = Adventure.getKey("abilities");
     private static final ExecutorItemRename itemRename = new ExecutorItemRename();
 
+    @SneakyThrows
     public static Optional<AdventureItem> getItem(ItemStack item) {
         if(item == null) return Optional.empty();
         if(item.getItemMeta() == null) return Optional.empty();
@@ -35,6 +39,7 @@ public class AdventureItem {
         PersistentDataContainer c = meta.getPersistentDataContainer();
         if(c.has(Adventure.getKey("id"), DataType.STRING)){
             String id = c.get(Adventure.getKey("id"), DataType.STRING);
+            String builder = c.get(Adventure.getKey("builder"), DataType.STRING);
             if(id == null) return Optional.empty();
             UUID uuid = UUID.fromString(id);
             if(!items.containsKey(uuid)){
@@ -84,7 +89,6 @@ public class AdventureItem {
     @Setter
     private List<String> lore;
     @Getter
-    @Setter
     private List<String> description;
     private final UUID uuid;
 
@@ -111,6 +115,20 @@ public class AdventureItem {
 
     public boolean hasAnAbility(){
         return !abilities.isEmpty();
+    }
+
+    @SneakyThrows
+    public AdventureItem setHead(String head){
+        if(original.getType() != Material.PLAYER_HEAD) {
+            throw new NotHeadItemException(uuid.toString());
+        }
+        new BlueprintCAdventureItemHeadData(this, head).execPin();
+        return this;
+    }
+
+    public AdventureItem setDescription(List<String> description) {
+        this.description = description;
+        return this;
     }
 
     public Optional<ItemAbility<?>> getAbilityFromQuery(String id){
@@ -140,7 +158,7 @@ public class AdventureItem {
     }
 
     public AdventureItem rename(String newName){
-        return itemRename.apply(this, newName);
+        return itemRename.process(this, newName);
     }
 
     public void inputAbility(Class<?> inputType, Object... arguments) {
@@ -182,13 +200,22 @@ public class AdventureItem {
         return abilityArray;
     }
 
-    <T, Z> AdventureItem setKey(String id, PersistentDataType<T, Z> dataType, Z data){
+    public <T, Z> AdventureItem setKey(String id, PersistentDataType<T, Z> dataType, Z data){
         ItemMeta meta = original.getItemMeta();
         if(meta == null) return this;
         PersistentDataContainer c = meta.getPersistentDataContainer();
         c.set(Adventure.getKey(id), dataType, data);
         original.setItemMeta(meta);
         return this;
+    }
+
+    public <T, Z> Z get(String id, @NotNull PersistentDataType<T, Z> dataType){
+        ItemMeta meta = original.getItemMeta();
+        if(meta == null) return null;
+        PersistentDataContainer c = meta.getPersistentDataContainer();
+        if(!c.has(Adventure.getKey(id), dataType)) return null;
+
+        return c.get(Adventure.getKey(id), dataType);
     }
 
     private void updateLore() {
@@ -214,4 +241,5 @@ public class AdventureItem {
     public String getId() {
         return uuid.toString();
     }
+
 }

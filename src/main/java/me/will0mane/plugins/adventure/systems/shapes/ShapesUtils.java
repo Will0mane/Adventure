@@ -5,8 +5,11 @@ import org.bukkit.block.Block;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ShapesUtils {
+
+    private static final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     private ShapesUtils(){}
 
@@ -30,4 +33,11 @@ public class ShapesUtils {
         return blocks;
     }
 
+    public static Location getRandomOffsettedLocation(Location location, double i, double i1, double i2) {
+        return location.clone().add(
+                random.nextDouble(-i,i),
+                random.nextDouble(-i1, i1),
+                random.nextDouble(-i2, i2)
+        );
+    }
 }

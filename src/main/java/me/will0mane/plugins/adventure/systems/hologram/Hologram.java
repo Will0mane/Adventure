@@ -7,12 +7,11 @@ import me.will0mane.plugins.adventure.systems.hologram.line.HologramLine;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Hologram {
+
+    public static final List<Hologram> holograms = new ArrayList<>();
 
     @Getter
     private final Map<Integer, HologramLine> lines = new HashMap<>();
@@ -29,6 +28,7 @@ public class Hologram {
             lines.put(i, spawnLine(string, location));
             i++;
         }
+        holograms.add(this);
         updateLines();
     }
 
@@ -91,5 +91,11 @@ public class Hologram {
     public HologramLine getLine(int key) {
         if(!lines.containsKey(key)) return null;
         return lines.get(key);
+    }
+
+    public void removeHologram() {
+        lines.forEach((integer, hologramLine) -> {
+            hologramLine.armorStand().remove();
+        });
     }
 }

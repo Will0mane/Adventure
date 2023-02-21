@@ -1,6 +1,7 @@
 package me.will0mane.plugins.adventure.systems.commands.register;
 
 import me.will0mane.plugins.adventure.game.commands.*;
+import me.will0mane.plugins.adventure.game.commands.pet_menu.PetMenuCommand;
 import me.will0mane.plugins.adventure.systems.commands.CommandBuilder;
 
 import java.util.HashMap;
@@ -33,5 +34,9 @@ public class CommandRegister {
         registerCommand("spawnnpc", new SpawnNPCCommand());
         registerCommand("debug", new DebugCommand());
         registerCommand("stats", new StatsCommand());
+        registerCommand("setitemstate", new SetItemStateCommand());
+        registerCommand("statistics", new StatisticCommand());
+        registerCommand("createpet", new CreatePetCommand());
+        registerCommand("pets", new PetMenuCommand());
     }
 }

@@ -9,8 +9,8 @@ import java.util.UUID;
 
 public class InventoryTask extends BukkitRunnable {
 
-    private UUID uuid;
-    private AdventureGUI gui;
+    private final UUID uuid;
+    private final AdventureGUI gui;
 
     public InventoryTask(UUID uuid, AdventureGUI gui){
         this.uuid = uuid;

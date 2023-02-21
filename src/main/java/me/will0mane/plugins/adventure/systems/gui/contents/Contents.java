@@ -34,7 +34,9 @@ public class Contents {
         if(column >= contents[row].length)
             return Optional.empty();
 
-        return Optional.ofNullable(contents[row][column]);
+        if(contents[row][column] == null) return Optional.empty();
+
+        return Optional.of(contents[row][column]);
     }
 
     public Contents set(int row, int column, Item item) {
@@ -45,7 +47,7 @@ public class Contents {
 
         contents[row][column] = item;
 
-        update(row, column, item.getItem());
+        update(row, column, item.getItemStack());
         return this;
     }
 
@@ -76,12 +78,13 @@ public class Contents {
     public Contents fillRect(int fromRow, int fromColumn, int toRow, int toColumn, Item item) {
         for(int row = fromRow; row <= toRow; row++) {
             for(int column = fromColumn; column <= toColumn; column++) {
-                if(row != fromRow && row != toRow && column != toColumn)
+                if(row != fromRow && row != toRow && column != fromColumn && column != toColumn)
                     continue;
 
                 set(row, column, item);
             }
         }
+
         return this;
     }
 
@@ -131,6 +134,8 @@ public class Contents {
         if(column >= contents[row].length)
             return Optional.empty();
 
+        if(contents[row][column] == null) return Optional.empty();
+
         return Optional.ofNullable(contents[row][column]);
     }
 
@@ -143,4 +148,11 @@ public class Contents {
         }
     }
 
+    public void setAll(Item item) {
+        for (int row = 0; row < contents.length; row++) {
+            for (int column = 0; column < contents[0].length; column++) {
+                set(row, column, item);
+            }
+        }
+    }
 }

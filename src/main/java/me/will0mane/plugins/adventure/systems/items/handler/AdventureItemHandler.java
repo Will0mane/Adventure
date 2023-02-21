@@ -2,6 +2,9 @@ package me.will0mane.plugins.adventure.systems.items.handler;
 
 import me.will0mane.plugins.adventure.game.items.types.*;
 import me.will0mane.plugins.adventure.game.items.types.custom.PowerfulBow;
+import me.will0mane.plugins.adventure.game.items.types.custom.YellowStone;
+import me.will0mane.plugins.adventure.game.items.types.custom.pet.PetItem;
+import me.will0mane.plugins.adventure.game.items.types.custom.pet.PetMenuItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,5 +32,8 @@ public class AdventureItemHandler {
         registerItem("sniper", Sniper.class);
         registerItem("vein_miner", VeinMinerPickaxe.class);
         registerItem("powerful_bow", PowerfulBow.class);
+        registerItem("yellowstone", YellowStone.class);
+        registerItem("pet_item", PetItem.class);
+        registerItem("pet_menu", PetMenuItem.class);
     }
 }

@@ -31,18 +31,30 @@ public class MongoStrength extends AmountStatistic<Double> {
     public Double get(UUID uuid) {
         FindIterable<Document> documents = statsDocument.find(new Document(DB_PLAYER_UUID, uuid.toString()));
 
-        if(!documents.iterator().hasNext()) return 0D;
+        if(!documents.iterator().hasNext()) return 1D;
 
         Document document = documents.first();
 
-        if(document == null) return 0D;
+        if(document == null) return 1D;
 
-        return document.getDouble(DB_KEY);
+        return document.getDouble(DB_KEY) == null ? 1D : document.getDouble(DB_KEY);
+    }
+
+    @Override
+    public String getAsString(UUID uuid) {
+        return "" + get(uuid);
+    }
+
+
+    @Override
+    public void setAsString(UUID uuid, String string) {
+        set(uuid, Double.parseDouble(string));
     }
 
     @Override
     public void set(UUID uuid, Double value) {
-        FindIterable<Document> documents = statsDocument.find(new Document(DB_PLAYER_UUID, uuid.toString()));
+        Document filter = new Document(DB_PLAYER_UUID, uuid.toString());
+        FindIterable<Document> documents = statsDocument.find(filter);
 
         if(!documents.iterator().hasNext()) {
             statsDocument.insertOne(new Document(DB_PLAYER_UUID, uuid.toString()));
@@ -53,10 +65,9 @@ public class MongoStrength extends AmountStatistic<Double> {
         Document document = documents.first();
 
         if(document == null) return;
+        document.append(DB_KEY, value);
 
-        document.remove(DB_KEY);
-        document.put(DB_KEY, value);
-        statsDocument.replaceOne(document, document);
+        statsDocument.replaceOne(filter, document);
     }
 
     @Override

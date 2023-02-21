@@ -33,6 +33,7 @@ public class Worker<T extends WorkerType> {
     public WorkerTask later(Consumer<Worker<?>> consumer, long delay){
         int taskID = getRandomID();
         WorkerTask task = new ConsumerTask(this, consumer, taskID);
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskLater(getPlugin(), delay);
         return task;
@@ -40,6 +41,7 @@ public class Worker<T extends WorkerType> {
 
     public WorkerTask later(WorkerTask task, long delay){
         int taskID = getRandomID();
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskLater(getPlugin(), delay);
         return task;
@@ -48,6 +50,7 @@ public class Worker<T extends WorkerType> {
     public WorkerTask laterAsync(Consumer<Worker<?>> consumer, long delay){
         int taskID = getRandomID();
         WorkerTask task = new ConsumerTask(this, consumer, taskID);
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskLaterAsynchronously(plugin, delay);
         return task;
@@ -55,6 +58,7 @@ public class Worker<T extends WorkerType> {
 
     public WorkerTask laterAsync(WorkerTask task, long delay){
         int taskID = getRandomID();
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskLaterAsynchronously(getPlugin(), delay);
         return task;
@@ -63,6 +67,7 @@ public class Worker<T extends WorkerType> {
     public WorkerTask timer(Consumer<Worker<?>> consumer, long after, long delay){
         int taskID = getRandomID();
         WorkerTask task = new ConsumerTask(this, consumer, taskID);
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskTimer(plugin, after, delay);
         return task;
@@ -70,6 +75,7 @@ public class Worker<T extends WorkerType> {
 
     public WorkerTask timer(WorkerTask task, long after, long delay){
         int taskID = getRandomID();
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskTimer(getPlugin(), after, delay);
         return task;
@@ -78,6 +84,7 @@ public class Worker<T extends WorkerType> {
     public WorkerTask timerAsync(Consumer<Worker<?>> consumer, long after, long delay){
         int taskID = getRandomID();
         WorkerTask task = new ConsumerTask(this, consumer, taskID);
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskTimerAsynchronously(plugin, after, delay);
         return task;
@@ -85,6 +92,7 @@ public class Worker<T extends WorkerType> {
 
     public WorkerTask timerAsync(WorkerTask task, long after, long delay){
         int taskID = getRandomID();
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskTimerAsynchronously(getPlugin(), after, delay);
         return task;
@@ -93,6 +101,7 @@ public class Worker<T extends WorkerType> {
     public WorkerTask now(Consumer<Worker<?>> consumer){
         int taskID = getRandomID();
         WorkerTask task = new ConsumerTask(this, consumer, taskID);
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTask(plugin);
         return task;
@@ -100,6 +109,7 @@ public class Worker<T extends WorkerType> {
 
     public WorkerTask now(WorkerTask task){
         int taskID = getRandomID();
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTask(getPlugin());
         return task;
@@ -108,6 +118,7 @@ public class Worker<T extends WorkerType> {
     public WorkerTask nowAsync(Consumer<Worker<?>> consumer){
         int taskID = getRandomID();
         WorkerTask task = new ConsumerTask(this, consumer, taskID);
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskAsynchronously(plugin);
         return task;
@@ -115,6 +126,7 @@ public class Worker<T extends WorkerType> {
 
     public WorkerTask nowAsync(WorkerTask task){
         int taskID = getRandomID();
+        task.setUsedID(taskID);
         addTask(task, taskID);
         task.runTaskAsynchronously(getPlugin());
         return task;

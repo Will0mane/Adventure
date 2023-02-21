@@ -6,9 +6,10 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class AdventureItemBuilder {
 
-    private AdventureItem item;
+    private final AdventureItem item;
+    private ItemStack itemStack;
 
-    public AdventureItemBuilder(Material material){
+    protected AdventureItemBuilder(Material material){
         this.item = new AdventureItem(material);
     }
 
@@ -18,6 +19,9 @@ public abstract class AdventureItemBuilder {
 
     public abstract void setup();
     public ItemStack getItemStack(){
-        return item.buildItem();
+        if(itemStack == null) {
+            itemStack = item.buildItem();
+        }
+        return itemStack;
     }
 }

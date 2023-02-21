@@ -8,20 +8,20 @@ public abstract class WorkerTask extends BukkitRunnable {
 
     @Getter
     private final Worker<?> worker;
-    private final int taskID;
+    @Getter
+    private int usedTaskID;
 
     protected WorkerTask(Worker<?> worker){
         this.worker = worker;
-        this.taskID = -1;
+        this.usedTaskID = -1;
     }
 
     protected WorkerTask(Worker<?> worker, int taskID){
         this.worker = worker;
-        this.taskID = taskID;
+        this.usedTaskID = taskID;
     }
 
-    @Override
-    public synchronized void cancel(){
-        worker.cancelTask(taskID);
+    public void setUsedID(int taskID){
+        this.usedTaskID = taskID;
     }
 }

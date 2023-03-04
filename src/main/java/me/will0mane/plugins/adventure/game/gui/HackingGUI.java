@@ -7,6 +7,7 @@ import me.will0mane.plugins.adventure.systems.gui.item.Item;
 import me.will0mane.plugins.adventure.systems.items.builder.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,7 +24,7 @@ public class HackingGUI extends AdventureGUI {
     }
 
     @Override
-    public void onInit(Player player, Contents contents) {
+    public void onInit(Player player, Contents contents, Object... objects) {
         int[] ioPortLoc = new int[]{
                 random.nextInt(1,6),
                 random.nextInt(1,9)
@@ -44,10 +45,15 @@ public class HackingGUI extends AdventureGUI {
     }
 
     @Override
-    public void onUpdate(Player player, Contents contents) {
+    public void onUpdate(Player player, Contents contents, Object... objects) {
     }
 
     @Override
-    public void onClose(Player player) {
+    public void onClose(Player player, Object... objects) {
+    }
+
+    @Override
+    public void onClickAllowed(InventoryClickEvent event, Object... objects) {
+
     }
 }

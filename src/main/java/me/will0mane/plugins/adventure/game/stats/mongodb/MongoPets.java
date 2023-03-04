@@ -50,14 +50,24 @@ public class MongoPets extends ArrayListStatistic<String> {
     }
 
     @Override
+    public String inGameName() {
+        return "Pets";
+    }
+
+    @Override
+    public String symbol() {
+        return "";
+    }
+
+    @Override
     public List<String> getList(UUID uuid) {
         FindIterable<Document> documents = statsDocument.find(new Document(DB_PLAYER_UUID, uuid.toString()));
 
-        if(!documents.iterator().hasNext()) return Collections.emptyList();
+        if(!documents.iterator().hasNext()) return new ArrayList<>();
 
         Document document = documents.first();
 
-        if(document == null) return Collections.emptyList();
+        if(document == null) return new ArrayList<>();
 
         String pets = document.getString(DB_KEY);
 
@@ -105,7 +115,7 @@ public class MongoPets extends ArrayListStatistic<String> {
         Document document = documents.first();
 
         if(document == null) return;
-        document.append(DB_KEY, builder.toString());
+        document.put(DB_KEY, builder.toString());
 
         statsDocument.replaceOne(filter, document);
     }

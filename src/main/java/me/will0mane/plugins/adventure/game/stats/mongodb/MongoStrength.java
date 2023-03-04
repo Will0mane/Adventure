@@ -52,6 +52,16 @@ public class MongoStrength extends AmountStatistic<Double> {
     }
 
     @Override
+    public String inGameName() {
+        return "Strength";
+    }
+
+    @Override
+    public String symbol() {
+        return "&c❁";
+    }
+
+    @Override
     public void set(UUID uuid, Double value) {
         Document filter = new Document(DB_PLAYER_UUID, uuid.toString());
         FindIterable<Document> documents = statsDocument.find(filter);

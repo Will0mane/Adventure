@@ -5,14 +5,12 @@ import me.will0mane.plugins.adventure.systems.gui.AdventureGUI;
 import me.will0mane.plugins.adventure.systems.gui.item.Item;
 import me.will0mane.plugins.adventure.systems.gui.slotpos.SlotPos;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class Contents {
 
@@ -48,6 +46,20 @@ public class Contents {
         contents[row][column] = item;
 
         update(row, column, item.getItemStack());
+        return this;
+    }
+
+    public Contents setAsInventory(ItemStack[] stacks){
+        int row = 0;
+        int column = 0;
+        for(ItemStack itemStack : stacks){
+            if(column == 9) {
+                column = 0;
+                row++;
+            }
+            set(row, column, Item.empty(itemStack));
+            column++;
+        }
         return this;
     }
 
@@ -154,5 +166,15 @@ public class Contents {
                 set(row, column, item);
             }
         }
+    }
+
+    public ItemStack[] getArray() {
+        List<ItemStack> list = new ArrayList<>();
+        for(int x = 0; x < gui.getBuilder().getColumn(); x++){
+            for(int y = 0; y < gui.getBuilder().getRows(); y++){
+                list.add(get(y,x).isPresent() ? get(y,x).get().getItemStack() : new ItemStack(Material.AIR));
+            }
+        }
+        return list.toArray(new ItemStack[]{});
     }
 }

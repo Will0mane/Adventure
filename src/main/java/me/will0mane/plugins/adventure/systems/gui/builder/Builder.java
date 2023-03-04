@@ -31,4 +31,10 @@ public class Builder {
         setRows(rows);
         return this;
     }
+
+    public Builder setSize(int length) {
+        setColumn(9);
+        setRows(length / 9);
+        return this;
+    }
 }

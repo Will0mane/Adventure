@@ -10,7 +10,7 @@ public abstract class ItemAbility<T extends AbilityData> {
     protected final String id;
     protected final UUID uuid;
 
-    public ItemAbility(String id){
+    protected ItemAbility(String id){
         this.id = id;
         this.uuid = UUID.randomUUID();
     }

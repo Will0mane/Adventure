@@ -5,7 +5,9 @@ import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.sessions.abs.PlayerSession;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.util.RayTraceResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,5 +55,9 @@ public class AdventurePlayer {
 
     public void sendActionBar(String message){
         ChatUtils.sendTranslatedActionBar(getBukkitPlayer(), message);
+    }
+
+    public World getWorld() {
+        return getBukkitPlayer().getWorld();
     }
 }

@@ -73,6 +73,16 @@ public class MongoProtection extends AmountStatistic<Double> {
     }
 
     @Override
+    public String inGameName() {
+        return "Protection";
+    }
+
+    @Override
+    public String symbol() {
+        return "&a❈";
+    }
+
+    @Override
     public void add(UUID uuid, Double value) {
         double now = get(uuid);
         set(uuid, now + value);

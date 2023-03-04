@@ -1,4 +1,4 @@
-package me.will0mane.plugins.adventure.game.items.abilities.triggers.custom;
+package me.will0mane.plugins.adventure.game.items.abilities.triggers.custom.pet;
 
 import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.DataType;
@@ -9,6 +9,8 @@ import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.InteractAbility;
 import me.will0mane.plugins.adventure.systems.particle.SoundUtils;
 import me.will0mane.plugins.adventure.systems.pets.AdventurePet;
+import me.will0mane.plugins.adventure.systems.stats.AdventureStat;
+import me.will0mane.plugins.adventure.systems.stats.AdventureStatManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,12 +38,14 @@ public class ReclaimPetAbility extends ItemAbility<InteractAbility> {
 
         AdventureItem item = optionalItem.get();
 
-        String petData = item.get(PDC_KEY, DataType.STRING);
+        String petData = item.get(PDC_KEY);
 
         if(petData == null) return;
 
         curPets.add(new AdventurePet(petData, uuid));
         AdventurePet.loadedPets.put(uuid, curPets);
+
+        Adventure.getRegistry().getAdventureStatManager().saveAll(uuid);
 
         Objects.requireNonNull(player.getEquipment()).setItemInMainHand(new ItemStack(Material.AIR));
         ChatUtils.sendMessageTranslated(player, "&aAdded your pet!");

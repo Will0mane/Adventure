@@ -28,7 +28,7 @@ import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.datatypes.coll
 import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.datatypes.collections.MapDataType;
 import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.datatypes.serializable.ConfigurationSerializableArrayDataType;
 import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.datatypes.serializable.ConfigurationSerializableDataType;
-import me.will0mane.plugins.adventure.morepersistentdatatypes.datatypes.*;
+import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import org.bukkit.*;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.banner.Pattern;
@@ -226,6 +226,10 @@ public interface DataType {
      * DataType for {@link Vector} arrays
      */
     PersistentDataType<byte[], Vector[]> VECTOR_ARRAY = new ConfigurationSerializableArrayDataType<>(Vector[].class);
+    /**
+     * DataType for {@link me.will0mane.plugins.adventure.systems.items.AdventureItem}
+     */
+    PersistentDataType<byte[], MapSerializable> ADVENTURE_ITEM = new ConfigurationSerializableDataType<>(MapSerializable.class);
     //endregion
 
     /*
@@ -235,7 +239,7 @@ public interface DataType {
     /**
      * DataType for {@link byte}s
      */
-    PersistentDataType<Byte, Boolean> BOOLEAN = new GenericDataType<>(Byte.class, Boolean.class, aByte -> aByte == 1, aBoolean -> aBoolean ? (byte) 1 : (byte) 0);
+    PersistentDataType<Byte, Boolean> BOOLEAN = new GenericDataType<>(Byte.class, Boolean.class, aByte -> aByte == 1, aBoolean -> Boolean.TRUE.equals(aBoolean) ? (byte) 1 : (byte) 0);
     /**
      * DataType for {@link boolean} arrays
      */
@@ -243,7 +247,7 @@ public interface DataType {
     /**
      * DataType for {@link char}s
      */
-    PersistentDataType<Integer, Character> CHARACTER = new GenericDataType<>(Integer.class, Character.class, integer -> (char) integer.intValue(), character -> (int) character);
+    PersistentDataType<Integer, Character> CHARACTER = new GenericDataType<>(Integer.class, Character.class, integer -> (char) integer.intValue(), int.class::cast);
     /**
      * DataType for {@link char} arrays
      */
@@ -311,6 +315,11 @@ public interface DataType {
      * DataType for {@link String}s
      */
     PersistentDataType<String, String> STRING = PersistentDataType.STRING;
+
+    /**
+     * DataType for Pets entities
+     */
+    PersistentDataType<Byte, Boolean> ADVENTURE_PET = new GenericDataType<>(Byte.class, Boolean.class, aByte -> aByte == 1, aBoolean -> Boolean.TRUE.equals(aBoolean) ? (byte) 1 : (byte) 0);;
     /**
      * DataType for {@link PersistentDataContainer}s
      */

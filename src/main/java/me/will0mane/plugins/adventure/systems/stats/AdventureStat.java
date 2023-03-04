@@ -8,5 +8,7 @@ public abstract class AdventureStat<T> {
     public abstract String getAsString(UUID uuid);
     public abstract void set(UUID uuid, T value);
     public abstract void setAsString(UUID uuid, String string);
+    public abstract String inGameName();
+    public abstract String symbol();
 
 }

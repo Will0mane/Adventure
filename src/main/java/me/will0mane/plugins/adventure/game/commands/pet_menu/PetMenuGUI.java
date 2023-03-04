@@ -7,6 +7,7 @@ import me.will0mane.plugins.adventure.systems.gui.item.Item;
 import me.will0mane.plugins.adventure.systems.pets.AdventurePet;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -18,7 +19,7 @@ public class PetMenuGUI extends AdventureGUI {
     }
 
     @Override
-    public void onInit(Player player, Contents contents) {
+    public void onInit(Player player, Contents contents, Object... objects) {
         contents.fillBorders(Item.empty(new ItemStack(Material.GRAY_STAINED_GLASS_PANE)));
 
         UUID uuid = player.getUniqueId();
@@ -32,9 +33,13 @@ public class PetMenuGUI extends AdventureGUI {
                     AdventurePet.equipPet(uuid, adventurePet);
                     return;
                 }
-                //TODO: To item
                 if(clickEvent.isRightClick() && !clickEvent.isShifting()){
                     AdventurePet.disequipPet(uuid);
+                    return;
+                }
+                if(clickEvent.isRightClick() && clickEvent.isShifting()){
+                    AdventurePet.disequipPetAndGiveItem(adventurePet, uuid);
+                    close(player);
                 }
             }));
             if((column + 1) == 8){
@@ -46,10 +51,15 @@ public class PetMenuGUI extends AdventureGUI {
     }
 
     @Override
-    public void onUpdate(Player player, Contents contents) {
+    public void onUpdate(Player player, Contents contents, Object... objects) {
     }
 
     @Override
-    public void onClose(Player player) {
+    public void onClose(Player player, Object... objects) {
+    }
+
+    @Override
+    public void onClickAllowed(InventoryClickEvent event, Object... objects) {
+
     }
 }

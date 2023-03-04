@@ -1,6 +1,7 @@
 package me.will0mane.plugins.adventure.systems.commands.register;
 
 import me.will0mane.plugins.adventure.game.commands.*;
+import me.will0mane.plugins.adventure.game.commands.equipment.EquipmentCommand;
 import me.will0mane.plugins.adventure.game.commands.pet_menu.PetMenuCommand;
 import me.will0mane.plugins.adventure.systems.commands.CommandBuilder;
 
@@ -38,5 +39,8 @@ public class CommandRegister {
         registerCommand("statistics", new StatisticCommand());
         registerCommand("createpet", new CreatePetCommand());
         registerCommand("pets", new PetMenuCommand());
+        registerCommand("debugitem", new DebugItemCommand());
+        registerCommand("loop", new LoopCommand());
+        registerCommand("equipment", new EquipmentCommand());
     }
 }

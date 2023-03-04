@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.gui.builder.Builder;
+import me.will0mane.plugins.adventure.systems.gui.clicks.ClickInventoryType;
 import me.will0mane.plugins.adventure.systems.gui.contents.Contents;
 import me.will0mane.plugins.adventure.systems.gui.events.ClickEvent;
 import me.will0mane.plugins.adventure.systems.gui.item.Item;
@@ -30,6 +31,7 @@ public abstract class AdventureGUI implements Listener {
     private final List<UUID> viewers = new ArrayList<>();
     @Getter
     private final Map<UUID, Integer> taskMap = new HashMap<>();
+    private final List<ClickInventoryType> allowedClicks = new ArrayList<>();
 
     protected AdventureGUI(Builder builder) {
         this.builder = builder;
@@ -38,11 +40,19 @@ public abstract class AdventureGUI implements Listener {
         Bukkit.getPluginManager().registerEvents(this, Adventure.getInstance());
     }
 
-    public abstract void onInit(Player player, Contents contents);
+    public abstract void onInit(Player player, Contents contents, Object... objects);
 
-    public abstract void onUpdate(Player player, Contents contents);
+    public abstract void onUpdate(Player player, Contents contents, Object... objects);
 
-    public abstract void onClose(Player player);
+    public abstract void onClose(Player player, Object... objects);
+
+    public abstract void onClickAllowed(InventoryClickEvent event, Object... objects);
+
+    public void close(Player player) {
+        InventoryCloseEvent e = new InventoryCloseEvent(player.getOpenInventory());
+        onInventoryClose(e);
+        player.closeInventory();
+    }
 
     public void open(Player player) {
         viewers.add(player.getUniqueId());
@@ -56,12 +66,34 @@ public abstract class AdventureGUI implements Listener {
                         .getTaskId());
     }
 
+    public void allowClick(ClickInventoryType inventoryType) {
+        this.allowedClicks.add(inventoryType);
+    }
+
+    public void denyClick(ClickInventoryType inventoryType) {
+        this.allowedClicks.remove(inventoryType);
+    }
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (e.getInventory() == e.getWhoClicked().getOpenInventory().getTopInventory() && viewers.contains(e.getWhoClicked().getUniqueId())) {
-            e.setCancelled(true);
-            if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory() == null) return;
+        if (!viewers.contains(e.getWhoClicked().getUniqueId())) return;
 
+        boolean cancel = false;
+        boolean clickInventory = false;
+        if (e.getClickedInventory() == e.getWhoClicked().getOpenInventory().getTopInventory()) {
+            cancel = !allowedClicks.contains(ClickInventoryType.GUI);
+            clickInventory = true;
+        }
+        if (e.getClickedInventory() == e.getWhoClicked().getInventory()) {
+            cancel = !allowedClicks.contains(ClickInventoryType.OWN_INVENTORY);
+        }
+        if (cancel) {
+            e.setCancelled(true);
+        } else {
+            onClickAllowed(e);
+        }
+        if(clickInventory){
             int row = e.getSlot() / 9;
             int column = e.getSlot() % 9;
 
@@ -80,15 +112,14 @@ public abstract class AdventureGUI implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
+        if (!viewers.contains(e.getPlayer().getUniqueId())) return;
+
         UUID uuid = e.getPlayer().getUniqueId();
-        if (e.getInventory() == e.getPlayer().getOpenInventory().getTopInventory()) {
-            onClose(Bukkit.getPlayer(uuid));
-            contents = new Contents(this);
-            viewers.remove(uuid);
-            if (taskMap.containsKey(uuid)) {
-                int task = taskMap.get(uuid);
-                Bukkit.getScheduler().cancelTask(task);
-            }
+        onClose(Bukkit.getPlayer(uuid), contents, e);
+        viewers.remove(uuid);
+        if (taskMap.containsKey(uuid)) {
+            int task = taskMap.get(uuid);
+            Bukkit.getScheduler().cancelTask(task);
         }
     }
 

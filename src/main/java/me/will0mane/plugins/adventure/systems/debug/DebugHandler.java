@@ -11,6 +11,7 @@ public class DebugHandler {
 
     private static final List<UUID> debugPlayers = new ArrayList<>();
 
+    private DebugHandler(){}
 
     public static boolean toggleDebug(UUID uuid){
         if(debugPlayers.contains(uuid)) {

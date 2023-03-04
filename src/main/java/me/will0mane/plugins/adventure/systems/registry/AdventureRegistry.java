@@ -4,30 +4,31 @@ import dev.sergiferry.playernpc.api.NPCLib;
 import lombok.Getter;
 import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.game.databases.mongodb.AdventureGameMongoDB;
+import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.commands.register.CommandRegister;
 import me.will0mane.plugins.adventure.systems.database.mongodb.MongoDBSettings;
-import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import me.will0mane.plugins.adventure.systems.items.handler.AdventureItemHandler;
 import me.will0mane.plugins.adventure.systems.listeners.manager.AdventureListenerManager;
 import me.will0mane.plugins.adventure.systems.moderation.Moderation;
 import me.will0mane.plugins.adventure.systems.npcs.NpcManager;
 import me.will0mane.plugins.adventure.systems.sessions.SessionHandler;
 import me.will0mane.plugins.adventure.systems.stats.AdventureStatManager;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class AdventureRegistry {
 
-    private AdventureListenerManager ListenerManager;
-    private CommandRegister CommandRegister;
-    private AdventureItemHandler ItemHandler;
+    private final AdventureListenerManager ListenerManager;
+    private final CommandRegister CommandRegister;
+    private final AdventureItemHandler ItemHandler;
     @Getter
-    private NpcManager NPCManager;
+    private final NpcManager NPCManager;
     @Getter
-    private me.will0mane.plugins.adventure.systems.moderation.Moderation Moderation;
+    private final me.will0mane.plugins.adventure.systems.moderation.Moderation Moderation;
     @Getter
-    private SessionHandler SessionsHandler;
+    private final SessionHandler SessionsHandler;
     @Getter
-    private AdventureGameMongoDB mongoDB;
+    private final AdventureGameMongoDB mongoDB;
     @Getter
     private AdventureStatManager adventureStatManager;
     @Getter
@@ -62,6 +63,7 @@ public class AdventureRegistry {
                     @Override
                     public void run() {
                         serverOpen = true;
+                        Bukkit.broadcastMessage(ChatUtils.translate("&aThe server is now ready!"));
                     }
                 }.runTaskLater(Adventure.getInstance(), 20);
             }

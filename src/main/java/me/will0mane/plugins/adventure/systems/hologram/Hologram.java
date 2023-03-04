@@ -5,7 +5,9 @@ import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.hologram.click.HologramClickManager;
 import me.will0mane.plugins.adventure.systems.hologram.line.HologramLine;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
@@ -30,6 +32,12 @@ public class Hologram {
         }
         holograms.add(this);
         updateLines();
+    }
+
+    public <T,Z> void addPersistentData(NamespacedKey key, PersistentDataType<T, Z> type, Z data){
+        lines.forEach((integer, hologramLine) -> {
+            hologramLine.armorStand().getPersistentDataContainer().set(key, type, data);
+        });
     }
 
     public void addLine(String string){
@@ -61,8 +69,11 @@ public class Hologram {
     }
 
     public void setLine(int index, String string){
-        removeLine(index);
-        lines.put(index, spawnLine(string, location));
+        if(!lines.containsKey(index)){
+            lines.put(index, spawnLine(string, location));
+        }
+        ArmorStand stand = lines.get(index).armorStand();
+        stand.setCustomName(string);
         updateLines();
     }
 
@@ -71,7 +82,8 @@ public class Hologram {
         double totalOffset = 0.5 * lines.size();
         Location startUp = location.clone().add(0,totalOffset,0);
         for(Map.Entry<Integer, HologramLine> line : lines.entrySet()){
-            Location tpLocation = startUp.clone().subtract(0,offset,0);
+            Location tpLocation = startUp.clone();
+            tpLocation.setY(tpLocation.getY() - offset);
             line.getValue().armorStand().teleport(tpLocation);
             offset += 0.5;
         }

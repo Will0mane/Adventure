@@ -11,6 +11,7 @@ import me.will0mane.plugins.adventure.systems.stats.AdventureStat;
 import me.will0mane.plugins.adventure.systems.stats.AdventureStatManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Optional;
@@ -22,7 +23,7 @@ public class StatsGUI extends AdventureGUI {
     }
 
     @Override
-    public void onInit(Player player, Contents contents) {
+    public void onInit(Player player, Contents contents, Object... objects) {
         contents.fillBorders(Item.empty(new ItemStack(Material.GRAY_STAINED_GLASS_PANE)));
         contents.set(1,1, Item.of(new ItemStack(Material.DIAMOND_SWORD), clickEvent -> {
             AdventureStatManager statManager = Adventure.getRegistry().getAdventureStatManager();
@@ -35,10 +36,15 @@ public class StatsGUI extends AdventureGUI {
     }
 
     @Override
-    public void onUpdate(Player player, Contents contents) {
+    public void onUpdate(Player player, Contents contents, Object... objects) {
     }
 
     @Override
-    public void onClose(Player player) {
+    public void onClose(Player player, Object... objects) {
+    }
+
+    @Override
+    public void onClickAllowed(InventoryClickEvent event, Object... objects) {
+
     }
 }

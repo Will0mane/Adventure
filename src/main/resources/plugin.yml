@@ -28,3 +28,9 @@ commands:
     description: Creates a pet item
   pets:
     description: Pets menu
+  debugitem:
+    description: Debug item data
+  loop:
+    description: Loops a command a specified amount of times
+  equipment:
+    description: Open's equipment GUI

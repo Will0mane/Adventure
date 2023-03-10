@@ -7,12 +7,11 @@ import me.will0mane.plugins.adventure.game.items.types.custom.pet.PetMenuItem;
 import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.DataType;
 import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.genericevents.GenericEvent;
-import me.will0mane.plugins.adventure.systems.gui.item.Item;
 import me.will0mane.plugins.adventure.systems.hologram.Hologram;
 import me.will0mane.plugins.adventure.systems.items.builder.ItemBuilder;
 import me.will0mane.plugins.adventure.systems.items.handler.AdventureItemHandler;
 import me.will0mane.plugins.adventure.systems.particle.SoundUtils;
-import me.will0mane.plugins.adventure.systems.pets.rarity.AdventureRarity;
+import me.will0mane.plugins.adventure.systems.pets.rarity.PetRarity;
 import me.will0mane.plugins.adventure.systems.pets.type.PetType;
 import me.will0mane.plugins.adventure.systems.stats.AdventureStat;
 import me.will0mane.plugins.adventure.systems.stats.types.ArrayListStatistic;
@@ -99,7 +98,7 @@ public class AdventurePet {
     private final PetType petType;
     private final UUID uuid;
     private final UUID owner;
-    private AdventureRarity rarity;
+    private PetRarity rarity;
     private int level;
     private double curXP;
     private double xpMax;
@@ -118,7 +117,7 @@ public class AdventurePet {
         this.level = Integer.parseInt(args[1].split(":")[0]);
         this.xpMax = Double.parseDouble(args[2].split(":")[0]);
         this.curXP = Double.parseDouble(args[3].split(":")[0]);
-        this.rarity = AdventureRarity.valueOf(args[4]);
+        this.rarity = PetRarity.valueOf(args[4]);
         this.uuid = UUID.randomUUID();
         this.owner = owner;
     }
@@ -253,7 +252,7 @@ public class AdventurePet {
 
         level++;
         curXP = 0;
-        xpMax = level * 1000D;
+        xpMax = (level * 1000D) * rarity.getWeight();
 
         sendMessage("&aYour pet levelled up! &7[&b" + level + "&7]");
         if(getOwnerBukkit() != null){
@@ -327,11 +326,11 @@ public class AdventurePet {
         return level;
     }
 
-    public AdventureRarity getRarity() {
+    public PetRarity getRarity() {
         return rarity;
     }
 
-    public void setRarity(AdventureRarity rarity) {
+    public void setRarity(PetRarity rarity) {
         this.rarity = rarity;
     }
 

@@ -26,7 +26,7 @@ public abstract class AdventureGUI implements Listener {
     @Getter
     private final UUID invUUID;
     @Getter
-    private Contents contents;
+    private final Contents contents;
     @Getter
     private final List<UUID> viewers = new ArrayList<>();
     @Getter

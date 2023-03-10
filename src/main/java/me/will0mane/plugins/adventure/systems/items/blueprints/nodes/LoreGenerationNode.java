@@ -6,6 +6,7 @@ import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import me.will0mane.plugins.adventure.systems.stats.AdventureStat;
+import me.will0mane.plugins.adventure.systems.stats.modes.StatData;
 import me.will0mane.plugins.adventure.systems.stats.types.AmountStatistic;
 
 import java.util.*;
@@ -31,14 +32,15 @@ public class LoreGenerationNode extends BlueprintNode {
     @Override
     public List<String> executePin(Object... objects) {
         List<String> generatedLore = new ArrayList<>();
-        Map<String, Double> itemStats = item.getStats();
+        Map<String, Object> itemStats = item.getStats();
         if(!itemStats.isEmpty()){
             generatedLore.add("");
-            itemStats.forEach((s, d) -> {
+            itemStats.forEach((s, statData) -> {
+                StatData data = (StatData) statData;
                 Optional<AdventureStat<?>> amountStatistic = Adventure.getRegistry().getAdventureStatManager().getRegisteredStatistic(s);
                 if(amountStatistic.isPresent()){
                     AmountStatistic<Double> stat = (AmountStatistic<Double>) amountStatistic.get();
-                    generatedLore.add("&7[" + stat.symbol() + "&7] " + stat.inGameName() + ": " + (d < 0 ? "&c" : "&b") + d);
+                    generatedLore.add("&7[" + stat.symbol() + "&7] " + stat.inGameName() + ": " + (data.getValue() < 0 ? "&c" : "&b") + data.getValue());
                 }
             });
         }

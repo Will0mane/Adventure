@@ -3,11 +3,9 @@ package me.will0mane.plugins.adventure.systems.listeners.manager;
 import me.will0mane.plugins.adventure.game.listeners.DamageHologramListener;
 import me.will0mane.plugins.adventure.systems.genericevents.listener.GenericEventListener;
 import me.will0mane.plugins.adventure.systems.genericevents.pet.PetGenericEventListener;
-import me.will0mane.plugins.adventure.systems.listeners.DefaultListener;
-import me.will0mane.plugins.adventure.systems.listeners.InteractListener;
-import me.will0mane.plugins.adventure.systems.listeners.JoinListener;
-import me.will0mane.plugins.adventure.systems.listeners.PetInteractListener;
+import me.will0mane.plugins.adventure.systems.listeners.*;
 import me.will0mane.plugins.adventure.systems.listeners.abs.AdventureListener;
+import me.will0mane.plugins.adventure.systems.stats.listener.ArmorSwitchStatListener;
 import me.will0mane.plugins.adventure.systems.stats.listener.ItemSwitchStatListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,8 +33,10 @@ public class AdventureListenerManager {
         registerListener("join", new JoinListener(javaPlugin));
         registerListener("interact", new InteractListener(javaPlugin));
         registerListener("default", new DefaultListener(javaPlugin));
+        registerListener("dmg", new DamageListener(javaPlugin));
         registerListener("dmghologram", new DamageHologramListener(javaPlugin));
         registerListener("itemswitchstat", new ItemSwitchStatListener(javaPlugin));
+        registerListener("armorswitchstat", new ArmorSwitchStatListener(javaPlugin));
     }
 
 

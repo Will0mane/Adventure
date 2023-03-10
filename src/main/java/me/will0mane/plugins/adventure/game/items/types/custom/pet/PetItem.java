@@ -3,7 +3,7 @@ package me.will0mane.plugins.adventure.game.items.types.custom.pet;
 import me.will0mane.plugins.adventure.game.items.abilities.triggers.custom.pet.ReclaimPetAbility;
 import me.will0mane.plugins.adventure.systems.items.builder.AdventureItemBuilder;
 import me.will0mane.plugins.adventure.systems.pets.AdventurePet;
-import me.will0mane.plugins.adventure.systems.pets.rarity.AdventureRarity;
+import me.will0mane.plugins.adventure.systems.pets.rarity.PetRarity;
 import me.will0mane.plugins.adventure.systems.pets.type.PetType;
 import org.bukkit.Material;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PetItem extends AdventureItemBuilder {
 
-    private final AdventureRarity rarity;
+    private final PetRarity rarity;
     private final String name;
     private final List<String> lore;
     private final String head;
@@ -47,6 +47,6 @@ public class PetItem extends AdventureItemBuilder {
     @Override
     public void setup() {
         getItem().rename(rarity.getColorPrefix() + name).setDescription(lore).addAbility(new ReclaimPetAbility()).setHead(head)
-        .setKey("petData", id.name() + ":" + level + ":" + maxXP + ":" + curXP + ":" + rarity.name());
+        .setKey("petData", id.name() + ":" + level + ":" + maxXP + ":" + curXP + ":" + rarity.name()).setKey("armorMovable", false);
     }
 }

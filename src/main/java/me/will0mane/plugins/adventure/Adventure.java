@@ -11,16 +11,15 @@ import java.util.UUID;
 
 public final class Adventure extends JavaPlugin {
 
-    private static String PLUGIN_UID = UUID.randomUUID().toString();
-    private static Adventure PLUGIN;
+    private static Adventure plugin;
     @Getter
-    private static AdventureRegistry Registry;
+    private static AdventureRegistry registry;
 
     @Override
     public void onEnable() {
-        PLUGIN = this;
+        plugin = this;
 
-        Registry = new AdventureRegistry();
+        registry = new AdventureRegistry();
     }
 
     @Override
@@ -34,7 +33,7 @@ public final class Adventure extends JavaPlugin {
     }
 
     public static Adventure getInstance(){
-        return PLUGIN;
+        return plugin;
     }
 
     public static NamespacedKey getKey(String key) {

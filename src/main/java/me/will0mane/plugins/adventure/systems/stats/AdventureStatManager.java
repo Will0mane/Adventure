@@ -1,10 +1,7 @@
 package me.will0mane.plugins.adventure.systems.stats;
 
 import me.will0mane.plugins.adventure.Adventure;
-import me.will0mane.plugins.adventure.game.stats.mongodb.MongoEquipment;
-import me.will0mane.plugins.adventure.game.stats.mongodb.MongoPets;
-import me.will0mane.plugins.adventure.game.stats.mongodb.MongoProtection;
-import me.will0mane.plugins.adventure.game.stats.mongodb.MongoStrength;
+import me.will0mane.plugins.adventure.game.stats.mongodb.*;
 import me.will0mane.plugins.adventure.systems.database.mongodb.AdventureMongoDB;
 import me.will0mane.plugins.adventure.systems.items.AdventureItem;
 import me.will0mane.plugins.adventure.systems.pets.AdventurePet;
@@ -31,6 +28,7 @@ public class AdventureStatManager {
     public void registerDefaultsMongo(){
         AdventureMongoDB mongoDB = Adventure.getRegistry().getMongoDB();
         registerStat("strength", new MongoStrength(mongoDB));
+        registerStat("critDamage", new MongoCritDamage(mongoDB));
         registerStat("protection", new MongoProtection(mongoDB));
         registerStat("pets", new MongoPets(mongoDB));
         registerStat("player_equipment", new MongoEquipment(mongoDB));
@@ -45,17 +43,17 @@ public class AdventureStatManager {
             }));
             statistic.setList(uniqueId, neu);
         });
-        getRegisteredStatistic("player_equipment").ifPresent(stat -> {
-            EquipmentStat<AdventureItem> statistic = (EquipmentStat<AdventureItem>) stat;
-            AdventureProfile profile = AdventureProfile.getProfile(uniqueId);
-            AdventureEquipment equipment = profile.getEquipment();
-            Map<String, AdventureItem> map = new HashMap<>();
-            map.put("head", equipment.getHeadStack());
-            map.put("chest", equipment.getChestStack());
-            map.put("belt", equipment.getBeltStack());
-            map.put("feet", equipment.getFeetStack());
-
-            statistic.setAll(uniqueId, map);
-        });
+//        getRegisteredStatistic("player_equipment").ifPresent(stat -> {
+//            EquipmentStat<AdventureItem> statistic = (EquipmentStat<AdventureItem>) stat;
+//            AdventureProfile profile = AdventureProfile.getProfile(uniqueId);
+//            AdventureEquipment equipment = profile.getEquipment();
+//            Map<String, AdventureItem> map = new HashMap<>();
+//            map.put("head", equipment.getHeadStack());
+//            map.put("chest", equipment.getChestStack());
+//            map.put("belt", equipment.getBeltStack());
+//            map.put("feet", equipment.getFeetStack());
+//
+//            statistic.setAll(uniqueId, map);
+//        });
     }
 }

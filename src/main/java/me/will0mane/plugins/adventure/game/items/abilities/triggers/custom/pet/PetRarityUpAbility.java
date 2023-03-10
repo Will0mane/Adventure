@@ -7,7 +7,7 @@ import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
 import me.will0mane.plugins.adventure.systems.items.abilities.data.PetInteractionAbility;
 import me.will0mane.plugins.adventure.systems.particle.SoundUtils;
 import me.will0mane.plugins.adventure.systems.pets.AdventurePet;
-import me.will0mane.plugins.adventure.systems.pets.rarity.AdventureRarity;
+import me.will0mane.plugins.adventure.systems.pets.rarity.PetRarity;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
@@ -40,7 +40,7 @@ public class PetRarityUpAbility extends ItemAbility<PetInteractionAbility> {
             return;
         }
 
-        AdventureRarity rarity = pet.getRarity().rankUp();
+        PetRarity rarity = pet.getRarity().rankUp();
         if(rarity == null){
             ChatUtils.sendMessageTranslated(player, "&cThe pet is already at maximum rank!");
         }else {

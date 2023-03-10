@@ -24,6 +24,7 @@ public class Backpack extends AdventureItemBuilder {
         )).addAbility(new BackpackAbility()).setHead(type.getHeadValue())
                 .setKey("backpackInventory", new ItemStack[]{})
                 .setKey("backpackSize", type.getSize())
-                .setKey("backpack", true);
+                .setKey("backpack", true)
+                .setKey("armorMovable", false);
     }
 }

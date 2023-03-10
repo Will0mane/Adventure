@@ -3,13 +3,13 @@ package me.will0mane.plugins.adventure.game.listeners;
 import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.systems.hologram.Hologram;
 import me.will0mane.plugins.adventure.systems.listeners.abs.AdventureListener;
+import me.will0mane.plugins.adventure.systems.listeners.events.DamageHologramEvent;
 import me.will0mane.plugins.adventure.systems.shapes.ShapesUtils;
 import me.will0mane.plugins.adventure.systems.workers.Worker;
 import me.will0mane.plugins.adventure.systems.workers.tasks.ConsumerTask;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,7 +37,7 @@ public class DamageHologramListener extends AdventureListener {
     }
 
     @EventHandler
-    public void onDamage(EntityDamageEvent event) {
+    public void onDamage(DamageHologramEvent event) {
 
         damage(event.getEntity(),
                 event.getCause() ==

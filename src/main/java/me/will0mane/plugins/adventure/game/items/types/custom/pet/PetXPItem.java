@@ -2,7 +2,7 @@ package me.will0mane.plugins.adventure.game.items.types.custom.pet;
 
 import me.will0mane.plugins.adventure.game.items.abilities.triggers.custom.pet.ReclaimPetXPAbility;
 import me.will0mane.plugins.adventure.systems.items.builder.AdventureItemBuilder;
-import me.will0mane.plugins.adventure.systems.pets.rarity.AdventureRarity;
+import me.will0mane.plugins.adventure.systems.pets.rarity.PetRarity;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class PetXPItem extends AdventureItemBuilder {
     @Override
     public void setup() {
         int rounded = (int) Math.round(xp);
-        getItem().rename(AdventureRarity.RARE.getColorPrefix() + "Pet Experience &7[&b" + rounded + "&7]")
+        getItem().rename(PetRarity.RARE.getColorPrefix() + "Pet Experience &7[&b" + rounded + "&7]")
                 .setDescription(Arrays.asList(
                         "&7A powerful item",
                         "&7that gives &bpet XP&7!",

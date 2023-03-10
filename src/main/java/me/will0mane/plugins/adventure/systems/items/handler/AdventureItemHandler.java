@@ -3,6 +3,7 @@ package me.will0mane.plugins.adventure.systems.items.handler;
 import me.will0mane.plugins.adventure.game.items.types.*;
 import me.will0mane.plugins.adventure.game.items.types.custom.PowerfulBow;
 import me.will0mane.plugins.adventure.game.items.types.custom.YellowStone;
+import me.will0mane.plugins.adventure.game.items.types.custom.armors.StrongArmor;
 import me.will0mane.plugins.adventure.game.items.types.custom.backpacks.Backpack;
 import me.will0mane.plugins.adventure.game.items.types.custom.equipment.EnderNecklace;
 import me.will0mane.plugins.adventure.game.items.types.custom.equipment.MagmaNecklace;
@@ -33,17 +34,29 @@ public class AdventureItemHandler {
     }
 
     public void registerDefaults() {
+        //Weapons
         registerItem("fast_bow", FastBow.class);
         registerItem("sniper", Sniper.class);
         registerItem("vein_miner", VeinMinerPickaxe.class);
         registerItem("powerful_bow", PowerfulBow.class);
+
+        //Materials
         registerItem("yellowstone", YellowStone.class);
+
+        //Pets
         registerItem("pet_item", PetItem.class);
         registerItem("pet_menu", PetMenuItem.class);
         registerItem("pet_xp", PetXPItem.class);
         registerItem("pet_rankup", PetRankupItem.class);
+
+        //Equipments
         registerItem("ender_necklace", EnderNecklace.class);
         registerItem("magma_necklace", MagmaNecklace.class);
+
+        //Backpacks
         registerItem("backpack", Backpack.class);
+
+        //Armors
+        registerItem("strong_armor", StrongArmor.class);
     }
 }

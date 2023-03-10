@@ -41,6 +41,7 @@ public class GiveItemCommand extends CommandBuilder {
         ItemStack itemStack = obj.getItemStack();
         AdventureItem adv = obj.getItem();
         AdventureItem.getItems().remove(adv.getUuid());
+        AdventureItem.getItem(itemStack);
         player.getInventory().addItem(itemStack);
         return new CommandResponse(commandBuilder -> commandBuilder.sendMessageToSender("&aSuccess!"));
     }

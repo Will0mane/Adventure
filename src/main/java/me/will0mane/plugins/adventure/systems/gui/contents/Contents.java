@@ -15,35 +15,35 @@ import java.util.*;
 public class Contents {
 
     @Getter
-    private Item[][] contents;
+    private final Item[][] contentsArray;
     @Getter
     private final Map<UUID, Item> itemMap = new HashMap<>();
     @Getter
-    private AdventureGUI gui;
+    private final AdventureGUI gui;
 
     public Contents(AdventureGUI gui){
         this.gui = gui;
-        contents = new Item[gui.getBuilder().getRows() + 1][gui.getBuilder().getColumn() + 1];
+        contentsArray = new Item[gui.getBuilder().getRows() + 1][gui.getBuilder().getColumn() + 1];
     }
 
     public Optional<Item> getItem(int row, int column){
-        if(row >= contents.length)
+        if(row >= contentsArray.length)
             return Optional.empty();
-        if(column >= contents[row].length)
+        if(column >= contentsArray[row].length)
             return Optional.empty();
 
-        if(contents[row][column] == null) return Optional.empty();
+        if(contentsArray[row][column] == null) return Optional.empty();
 
-        return Optional.of(contents[row][column]);
+        return Optional.of(contentsArray[row][column]);
     }
 
     public Contents set(int row, int column, Item item) {
-        if(row >= contents.length)
+        if(row >= contentsArray.length)
             return this;
-        if(column >= contents[row].length)
+        if(column >= contentsArray[row].length)
             return this;
 
-        contents[row][column] = item;
+        contentsArray[row][column] = item;
 
         update(row, column, item.getItemStack());
         return this;
@@ -66,7 +66,7 @@ public class Contents {
     public Contents fillEmpty(Item item){
         for(int x = 0; x < gui.getBuilder().getColumn(); x++){
             for(int y = 0; y < gui.getBuilder().getRows(); y++){
-                if(contents[y][x] == null) continue;
+                if(contentsArray[y][x] == null) continue;
                 set(y,x, item);
             }
         }
@@ -101,26 +101,26 @@ public class Contents {
     }
 
     public Contents fillColumn(int column, Item item) {
-        for(int row = 0; row < contents.length; row++)
+        for(int row = 0; row < contentsArray.length; row++)
             set(row, column, item);
 
         return this;
     }
 
     public Contents fillRow(int row, Item item) {
-        if(row >= contents.length)
+        if(row >= contentsArray.length)
             return this;
 
-        for(int column = 0; column < contents[row].length; column++)
+        for(int column = 0; column < contentsArray[row].length; column++)
             set(row, column, item);
 
         return this;
     }
 
     public Contents add(Item item) {
-        for(int row = 0; row < contents.length; row++) {
-            for(int column = 0; column < contents[0].length; column++) {
-                if(contents[row][column] == null) {
+        for(int row = 0; row < contentsArray.length; row++) {
+            for(int column = 0; column < contentsArray[0].length; column++) {
+                if(contentsArray[row][column] == null) {
                     set(row, column, item);
                     return this;
                 }
@@ -130,8 +130,8 @@ public class Contents {
     }
 
     public Optional<SlotPos> firstEmpty() {
-        for (int row = 0; row < contents.length; row++) {
-            for(int column = 0; column < contents[0].length; column++) {
+        for (int row = 0; row < contentsArray.length; row++) {
+            for(int column = 0; column < contentsArray[0].length; column++) {
                 if(this.get(row, column).isEmpty())
                     return Optional.of(new SlotPos(row, column));
             }
@@ -141,14 +141,14 @@ public class Contents {
     }
 
     public Optional<Item> get(int row, int column) {
-        if(row >= contents.length)
+        if(row >= contentsArray.length)
             return Optional.empty();
-        if(column >= contents[row].length)
+        if(column >= contentsArray[row].length)
             return Optional.empty();
 
-        if(contents[row][column] == null) return Optional.empty();
+        if(contentsArray[row][column] == null) return Optional.empty();
 
-        return Optional.ofNullable(contents[row][column]);
+        return Optional.ofNullable(contentsArray[row][column]);
     }
 
     private void update(int row, int column, ItemStack item) {
@@ -161,8 +161,8 @@ public class Contents {
     }
 
     public void setAll(Item item) {
-        for (int row = 0; row < contents.length; row++) {
-            for (int column = 0; column < contents[0].length; column++) {
+        for (int row = 0; row < contentsArray.length; row++) {
+            for (int column = 0; column < contentsArray[0].length; column++) {
                 set(row, column, item);
             }
         }

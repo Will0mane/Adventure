@@ -42,5 +42,6 @@ public class CommandRegister {
         registerCommand("debugitem", new DebugItemCommand());
         registerCommand("loop", new LoopCommand());
         registerCommand("equipment", new EquipmentCommand());
+        registerCommand("itemstats", new ItemStatsCommand());
     }
 }

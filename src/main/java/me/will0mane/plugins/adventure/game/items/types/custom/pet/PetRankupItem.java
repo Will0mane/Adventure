@@ -2,7 +2,7 @@ package me.will0mane.plugins.adventure.game.items.types.custom.pet;
 
 import me.will0mane.plugins.adventure.game.items.abilities.triggers.custom.pet.PetRarityUpAbility;
 import me.will0mane.plugins.adventure.systems.items.builder.AdventureItemBuilder;
-import me.will0mane.plugins.adventure.systems.pets.rarity.AdventureRarity;
+import me.will0mane.plugins.adventure.systems.pets.rarity.PetRarity;
 import org.bukkit.Material;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ public class PetRankupItem extends AdventureItemBuilder {
 
     @Override
     public void setup() {
-        getItem().rename(AdventureRarity.LEGENDARY.getColorPrefix() + "Pet Rankupper")
+        getItem().rename(PetRarity.LEGENDARY.getColorPrefix() + "Pet Rankupper")
                 .setDescription(Arrays.asList(
                         "&7A powerful item",
                         "&7that ranks up your pet!"

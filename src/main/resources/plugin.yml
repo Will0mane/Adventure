@@ -34,3 +34,5 @@ commands:
     description: Loops a command a specified amount of times
   equipment:
     description: Open's equipment GUI
+  itemstats:
+    description: Item stats editor

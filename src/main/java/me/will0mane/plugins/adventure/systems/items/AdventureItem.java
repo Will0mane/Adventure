@@ -7,13 +7,18 @@ import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.game.executors.ExecutorItemRename;
 import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.DataType;
 import me.will0mane.plugins.adventure.lib.morepersistentdatatypes.datatypes.MapSerializable;
+import me.will0mane.plugins.adventure.systems.exceptions.adventureitem.abs.NotColorableItemException;
 import me.will0mane.plugins.adventure.systems.exceptions.adventureitem.abs.NotHeadItemException;
 import me.will0mane.plugins.adventure.systems.items.abilities.Abilities;
 import me.will0mane.plugins.adventure.systems.items.abilities.ItemAbility;
+import me.will0mane.plugins.adventure.systems.items.blueprints.BlueprintCAdventureItemColorData;
 import me.will0mane.plugins.adventure.systems.items.blueprints.BlueprintCAdventureItemHeadData;
 import me.will0mane.plugins.adventure.systems.items.blueprints.BlueprintCAdventureItemLoreGeneration;
 import me.will0mane.plugins.adventure.systems.items.enchant.ItemEnchant;
+import me.will0mane.plugins.adventure.systems.stats.modes.StatData;
+import me.will0mane.plugins.adventure.systems.stats.modes.StatMode;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -36,6 +41,7 @@ public class AdventureItem implements ConfigurationSerializable , Listener {
     private static final String ABILITIES_KEY = "abilities";
     private static final String ENCHANTMENT_KEY = "enchants";
     private static final String STATS_KEY = "stats";
+    private static final String STATS_MODE_KEY = "stats_mode";
 
     //Maps
     @Getter
@@ -57,7 +63,7 @@ public class AdventureItem implements ConfigurationSerializable , Listener {
 
         NamespacedKey key = Adventure.getKey(DATA_KEY);
         if(c.has(key, DataType.ADVENTURE_ITEM)){
-            Map<String,Object> map = Objects.requireNonNull(c.get(key, DataType.ADVENTURE_ITEM)).getMap();
+            Map<String,Object> map = Objects.requireNonNull(c.get(Adventure.getKey(DATA_KEY), DataType.ADVENTURE_ITEM)).map();
 
             String id = (String) map.get(ID_KEY);
             if(id == null) return Optional.empty();
@@ -85,13 +91,19 @@ public class AdventureItem implements ConfigurationSerializable , Listener {
         PersistentDataContainer c = meta.getPersistentDataContainer();
         NamespacedKey key = Adventure.getKey(DATA_KEY);
         if(c.has(key, DataType.ADVENTURE_ITEM)){
-            Map<String, Object> data = Objects.requireNonNull(c.get(key, DataType.ADVENTURE_ITEM)).getMap();
+            Map<String, Object> data = Objects.requireNonNull(c.get(key, DataType.ADVENTURE_ITEM)).map();
+
+            if(!data.containsKey(ABILITIES_KEY)){
+                return new ArrayList<>();
+            }
             String abilityKey = (String) data.get(ABILITIES_KEY);
+            if(abilityKey == null || abilityKey.equals("")) return new ArrayList<>();
             String[] abilities = abilityKey.split(";");
 
             Abilities[] abs = new Abilities[abilities.length];
             int done = 0;
             for(String s : abilities){
+                if(s == null || s.equals("")) continue;
                 if(s.contains(";")){
                     abs[done] = Abilities.valueOf(s.split(";")[0]);
                 }else {
@@ -122,7 +134,7 @@ public class AdventureItem implements ConfigurationSerializable , Listener {
     private List<String> description;
     @Getter
     private final Map<String,Object> data;
-    private final Map<String, Double> stats;
+    private final Map<String, Object> stats;
     @Getter
     private final UUID uuid;
 
@@ -145,11 +157,11 @@ public class AdventureItem implements ConfigurationSerializable , Listener {
 
         //Statistics
         if(data.containsKey(STATS_KEY)){
-            this.stats = (Map<String, Double>) data.get(STATS_KEY);
+            Map<String,Object> d = (Map<String, Object>) data.get(STATS_KEY);
+            this.stats = d;
         }else {
             this.stats = new HashMap<>();
         }
-
         //Global map
         items.put(uuid, this);
     }
@@ -189,6 +201,15 @@ public class AdventureItem implements ConfigurationSerializable , Listener {
             throw new NotHeadItemException(uuid.toString());
         }
         new BlueprintCAdventureItemHeadData(this, head).execPin();
+        return this;
+    }
+
+    @SneakyThrows
+    public AdventureItem color(Color color){
+        if(!original.getType().name().contains("LEATHER")) {
+            throw new NotColorableItemException(uuid.toString());
+        }
+        new BlueprintCAdventureItemColorData(this, color).execPin();
         return this;
     }
 
@@ -290,12 +311,29 @@ public class AdventureItem implements ConfigurationSerializable , Listener {
     }
 
     //Stats
-    public Map<String, Double> getStats() {
+    public Map<String, Object> getStats() {
         return stats;
     }
 
-    public AdventureItem setStatistic(String id, double data){
-        stats.put(id, data);
+    public AdventureItem setStatistic(String id, double data, StatMode mode){
+        stats.put(id, new StatData(data, mode));
+        setKey(STATS_KEY, stats);
+        return this;
+    }
+
+    public StatMode getStatMode(String id) {
+        return ((StatData) stats.get(id)).getMode();
+    }
+
+    public AdventureItem setStatMode(String id, StatMode mode) {
+        double value = ((StatData) getStats().get(id)).getValue();
+        stats.put(id, new StatData(value, mode));
+        setKey(STATS_KEY, stats);
+        return this;
+    }
+
+    public AdventureItem removeStatistic(String id) {
+        stats.remove(id);
         setKey(STATS_KEY, stats);
         return this;
     }

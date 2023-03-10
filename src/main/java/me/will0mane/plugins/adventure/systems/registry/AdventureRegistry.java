@@ -4,6 +4,7 @@ import dev.sergiferry.playernpc.api.NPCLib;
 import lombok.Getter;
 import me.will0mane.plugins.adventure.Adventure;
 import me.will0mane.plugins.adventure.game.databases.mongodb.AdventureGameMongoDB;
+import me.will0mane.plugins.adventure.lib.armorequipevent.ArmorEvent;
 import me.will0mane.plugins.adventure.systems.chat.ChatUtils;
 import me.will0mane.plugins.adventure.systems.commands.register.CommandRegister;
 import me.will0mane.plugins.adventure.systems.database.mongodb.MongoDBSettings;
@@ -49,6 +50,8 @@ public class AdventureRegistry {
         mongoDB = new AdventureGameMongoDB(new MongoDBSettings(
                 "mongodb+srv://Admin:bus0vm1KGF5rKK9@entrodb.qexb8.mongodb.net/?retryWrites=true&w=majority"
         ));
+
+        ArmorEvent.registerListener(Adventure.getInstance());
 
         registerNPCs();
 
